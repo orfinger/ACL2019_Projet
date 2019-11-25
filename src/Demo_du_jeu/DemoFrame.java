@@ -3,12 +3,13 @@ package Demo_du_jeu;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 
 public class DemoFrame extends JFrame{
 	 
-	public DemoFrame() throws InterruptedException {
+	public DemoFrame() throws InterruptedException, IOException {
 		this.setTitle("Demo");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(630, 660);
@@ -16,7 +17,7 @@ public class DemoFrame extends JFrame{
 		
 		Hero hero = new Hero();
 		
-		Lybrinthe panel = new Lybrinthe(hero);
+		Labyrinthe panel = new Labyrinthe(hero,"Labyrinthe.txt");
 		this.add(panel); //add panel to frame
 		this.setVisible(true);
 		
