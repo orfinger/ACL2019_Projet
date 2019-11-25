@@ -28,7 +28,14 @@ public class Labyrinthe extends JPanel {
 			System.out.println("");
 		}
 	}
-	/*
+	
+	public Labyrinthe(Hero hero,String chemin) throws IOException {
+		GenererLabyrinthe(chemin);
+		this.hero = hero;
+		
+	}
+	
+	
 	@Override
 	public void paint(Graphics g) {		
 		super.paint(g);
@@ -37,12 +44,12 @@ public class Labyrinthe extends JPanel {
 		for (int i=0; i<map.length; i++) {
 			for (int j=0; j<map[0].length; j++) {
 				if (map[i][j]==1) {
-					g.drawImage(image, i*30, j*30, 30, 30, null);
+					g.drawImage(image, j*30, i*30, 30, 30, null);
 				}
 			}
 		}
 		g.drawImage(hero.getImage(), hero.getX(), hero.getY(), 30, 30, null);
-	}*/
+	}
 	
 	public static void GenererLabyrinthe(String chemin) throws IOException{
 		BufferedReader fichier = new BufferedReader(new FileReader(chemin));
@@ -52,7 +59,10 @@ public class Labyrinthe extends JPanel {
 				String [] ligne_lettre = ligne.split("");
 				int [] ligne_chiffre = new int [ligne.length()];
 				for (int j=0;j<ligne.length();j++) {
-					int chiffre = Integer.parseInt(ligne_lettre[j]);
+					int chiffre = 0;
+					if (ligne_lettre[j].equals("1")) {
+						chiffre = 1;
+					}
 					ligne_chiffre[j] = chiffre;
 				}
 				liste.add(ligne_chiffre);

@@ -12,12 +12,13 @@ public class DemoFrame extends JFrame{
 	public DemoFrame() throws InterruptedException, IOException {
 		this.setTitle("Demo");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(630, 660);
+
 		this.setVisible(true);
 		
 		Hero hero = new Hero();
 		
 		Labyrinthe panel = new Labyrinthe(hero,"Labyrinthe.txt");
+		this.setSize(60 + panel.map[0].length*30,60 + panel.map.length*30);
 		this.add(panel); //add panel to frame
 		this.setVisible(true);
 		
@@ -53,7 +54,7 @@ public class DemoFrame extends JFrame{
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		try {
 			new DemoFrame();
 		} catch (InterruptedException e) {
