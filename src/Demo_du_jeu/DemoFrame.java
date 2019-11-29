@@ -16,8 +16,9 @@ public class DemoFrame extends JFrame{
 		this.setVisible(true);
 		
 		Hero hero = new Hero();
+		Tresor tresor = new Tresor();
 		
-		Labyrinthe panel = new Labyrinthe(hero,"Labyrinthe.txt");
+		Labyrinthe panel = new Labyrinthe(hero,tresor,"Labyrinthe.txt");
 		this.setSize(60 + panel.map[0].length*30,60 + panel.map.length*30);
 		this.add(panel); //add panel to frame
 		this.setVisible(true);
