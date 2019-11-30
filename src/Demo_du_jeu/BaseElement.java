@@ -1,7 +1,8 @@
 package Demo_du_jeu;
 
 import java.awt.*;
-import javax.swing.*;
+import javax.swing.ImageIcon;
+
 
 public abstract class BaseElement {
 	
@@ -16,8 +17,8 @@ public abstract class BaseElement {
 	}
 
 	public Image getImage() {
-		this.image=new ImageIcon("path").getImage();
-		return image;
+		this.image=new ImageIcon(path).getImage();
+		return this.image;
 	}
 	
 	public int getX() {

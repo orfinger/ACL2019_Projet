@@ -1,6 +1,5 @@
 package Demo_du_jeu;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -9,6 +8,11 @@ import javax.swing.JFrame;
 
 public class DemoFrame extends JFrame{
 	 
+	/**
+	 * v0.4
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public DemoFrame() throws InterruptedException, IOException {
 		this.setTitle("Demo");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -19,7 +23,7 @@ public class DemoFrame extends JFrame{
 		Tresor tresor = new Tresor();
 		
 		Labyrinthe panel = new Labyrinthe(hero,tresor,"Labyrinthe.txt");
-		this.setSize(60 + panel.map[0].length*30,60 + panel.map.length*30);
+		this.setSize(60 + Labyrinthe.map[0].length*30,60 + Labyrinthe.map.length*30);
 		this.add(panel); //add panel to frame
 		this.setVisible(true);
 		

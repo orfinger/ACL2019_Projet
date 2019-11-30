@@ -2,26 +2,29 @@ package Demo_du_jeu;
 
 import java.awt.*;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 import javax.swing.*;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
 public class Labyrinthe extends JPanel {
 	
+	/**
+	 * v0.4
+	 */
+	private static final long serialVersionUID = 1L;
+
 	static int[][] map;
 	
 	private Hero hero;
 	private Tresor tresor;
+
+	private static BufferedReader fichier;
 	
 	public Labyrinthe(String chemin) throws IOException {
 		GenererLabyrinthe(chemin);
-		this.hero = hero;
 		for (int [] l : map) {
 			for (int element: l) {
 				System.out.print(element);
@@ -54,9 +57,9 @@ public class Labyrinthe extends JPanel {
 	}
 	
 	public static void GenererLabyrinthe(String chemin) throws IOException{
-		BufferedReader fichier = new BufferedReader(new FileReader(chemin));
+		fichier = new BufferedReader(new FileReader(chemin));
 		String ligne;
-		ArrayList<int []> liste = new ArrayList();
+		ArrayList<int []> liste = new ArrayList<int []>();
 		while( ( ligne = fichier.readLine() ) != null ){
 				String [] ligne_lettre = ligne.split("");
 				int [] ligne_chiffre = new int [ligne.length()];
