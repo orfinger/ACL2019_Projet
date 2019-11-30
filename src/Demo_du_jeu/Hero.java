@@ -6,7 +6,7 @@ public class Hero extends BaseElement{
 		super();
 		this.x=30;
 		this.y=30;
-		this.path="src/resource/hero_right.jpeg";
+		this.path="src/resource/hero_right.jpg";
 		
 	}
 

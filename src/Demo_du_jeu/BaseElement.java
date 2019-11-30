@@ -36,5 +36,13 @@ public abstract class BaseElement {
 	public void setY(int y) {
 		this.y=y;
 	}
+	
+	public Rectangle getRectangle() {
+        return new Rectangle(this.x, this.y, this.width, this.height);
+    }
+
+    public <E extends BaseElement> boolean intersects(E element) {
+        return this.getRectangle().intersects(element.getRectangle());
+    }
 
 }
