@@ -32,15 +32,41 @@ public class DemoFrame extends JFrame{
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				if (KeyEvent.VK_UP==e.getKeyCode()) {
-					hero.setY(hero.getY()-5);
-				} else if (KeyEvent.VK_DOWN==e.getKeyCode()) {
-					hero.setY(hero.getY()+5);
-				} else if (KeyEvent.VK_LEFT==e.getKeyCode()) {
-					hero.setX(hero.getX()-5);
-				} else if (KeyEvent.VK_RIGHT==e.getKeyCode()) {
-					hero.setX(hero.getX()+5);
+				Hero a = new Hero();
+				
+				if (!hero.intersects(tresor)&&!hero.intersects(monstre)) {
+
+					a.setX(hero.getX());
+					a.setY(hero.getY());
+
+					if (KeyEvent.VK_UP == e.getKeyCode()) {
+						a.setY(a.getY()-5);
+						if (!a.intersects(tresor)&&!a.intersects(monstre)) {
+							hero.setY(hero.getY() - 5);
+						}
+					} else if (KeyEvent.VK_DOWN == e.getKeyCode()) {
+						a.setY(a.getY()+5);
+						if (!a.intersects(tresor)&&!a.intersects(monstre)) {
+							hero.setY(hero.getY() + 5);
+						}
+					} else if (KeyEvent.VK_LEFT == e.getKeyCode()) {
+						a.setX(a.getX()-5);
+						if (!a.intersects(tresor)&&!a.intersects(monstre)) {
+							hero.setX(hero.getX() - 5);
+						}
+					} else if (KeyEvent.VK_RIGHT == e.getKeyCode()) {
+						a.setX(a.getX()+5);
+						if (!a.intersects(tresor)&&!a.intersects(monstre)) {
+							hero.setX(hero.getX() + 5);
+						} 
+					} else if (KeyEvent.VK_RIGHT == e.getKeyCode()&&KeyEvent.VK_UP == e.getKeyCode()) {
+						a.setX(a.getX()+5);
+						a.setY(a.getY()-5);
+						if (!a.intersects(tresor)&&!a.intersects(monstre)) {
+							hero.setX(hero.getX() + 5);
+							hero.setY(hero.getY() - 5);
+						}
+					} 
 				}
 			}
 
