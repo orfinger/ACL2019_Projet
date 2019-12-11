@@ -23,7 +23,8 @@ public class DemoFrame extends JFrame{
 		Tresor tresor = new Tresor();
 		Monstre monstre = new Monstre();
 		
-		Labyrinthe panel = new Labyrinthe(hero,tresor,monstre,"lab2.txt");
+		Labyrinthe panel = new Labyrinthe(hero,tresor,monstre,"Labyrinthe.txt");
+//		panel.addMonstres();
 		this.setSize(60 + Labyrinthe.map[0].length*30,60 + Labyrinthe.map.length*30);
 		this.add(panel); //add panel to frame
 		this.setVisible(true);
@@ -62,6 +63,7 @@ public class DemoFrame extends JFrame{
 	
 	public static void main(String[] args) throws IOException {
 		try {
+			initilasation niveau= new initilasation(2);
 			new DemoFrame();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
