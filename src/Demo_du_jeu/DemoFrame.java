@@ -45,6 +45,7 @@ public class DemoFrame extends JFrame{
 		this.addKeyListener(new KeyAdapter(){
 
 			@Override
+
 			public void keyPressed(KeyEvent e) {
 				Hero a = new Hero();
 				Keys.add(e.getKeyCode());
@@ -54,33 +55,43 @@ public class DemoFrame extends JFrame{
 					a.setY(hero.getY());
 
 					if (Keys.UP.use()) {
+						hero.direction = Direction.UP;
 						a.setY(a.getY()-5);
 						if (!a.intersects(tresor)&&!a.intersects(monstre)) {
 							hero.setY(hero.getY() - 5);
 						}
 					} else if (Keys.DOWN.use()) {
+						hero.direction = Direction.DOWN;
 						a.setY(a.getY()+5);
 						if (!a.intersects(tresor)&&!a.intersects(monstre)) {
 							hero.setY(hero.getY() + 5);
 						}
 					} 
 					if (Keys.LEFT.use()) {
+						hero.direction = Direction.LEFT;
 						a.setX(a.getX()-5);
 						if (!a.intersects(tresor)&&!a.intersects(monstre)) {
 							hero.setX(hero.getX() - 5);
 						}
 					} else if (Keys.RIGHT.use()) {
+						hero.direction = Direction.RIGHT;
 						a.setX(a.getX()+5);
 						if (!a.intersects(tresor)&&!a.intersects(monstre)) {
 							hero.setX(hero.getX() + 5);
 						} 
 					} 
 				}
+				int count1 = 0;
+				if (Keys.ATTACK.use()) {
+					hero.attack = true;
+				}
 			}
 
 			@Override
+			
 			public void keyReleased(KeyEvent e) {
 				Keys.remove(e.getKeyCode());
+	
 			}
 
 			@Override
@@ -90,6 +101,7 @@ public class DemoFrame extends JFrame{
 		
 
 		int count = 0;
+		int count1 = 0;
 		double speed = 0.1;
 		
 		while(true) {
@@ -99,7 +111,19 @@ public class DemoFrame extends JFrame{
 			if (count>( (int)1/speed)) { //Speed vitesse de déplacement du monstre
 				monstre.suivreHero(hero);
 				count = 0;
-			}	
+			}
+			if (hero.attack) {
+				hero.path = "src/resource/Character_AttackRight.png";
+				count1++;
+				if (hero.aCote(monstre))
+					monstre.path = "src/resource/wall.jpg ";
+				if (count1==40) {
+					hero.path = "src/resource/Character_Right.png";
+					hero.attack = false;
+					count1=0;
+				}
+			}
+			
 		}
 	}
 	

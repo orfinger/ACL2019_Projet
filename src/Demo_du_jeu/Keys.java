@@ -11,7 +11,7 @@ public enum Keys {
     RIGHT(KeyEvent.VK_RIGHT),
     UP(KeyEvent.VK_UP),
     DOWN(KeyEvent.VK_DOWN),
-    
+    ATTACK(KeyEvent.VK_A),
     HELP(KeyEvent.VK_H);
     
 

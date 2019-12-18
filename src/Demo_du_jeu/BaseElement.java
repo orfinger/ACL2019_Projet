@@ -46,5 +46,13 @@ public abstract class BaseElement {
     public <E extends BaseElement> boolean intersects(E element) {
         return this.getRectangle().intersects(element.getRectangle());
     }
-
+    
+    public <E extends BaseElement> boolean aCote(E element) {
+    	int dx = this.getX() - element.getX();
+		int dy = this.getY() - element.getY();
+		int radial_distance = (int) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+		System.out.println((radial_distance));
+    	return (radial_distance<=30);
+      
+    }
 }
