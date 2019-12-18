@@ -1,6 +1,7 @@
 package Demo_du_jeu;
 
 import java.awt.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,19 +22,41 @@ public class Labyrinthe extends JPanel {
 	private Hero hero;
 	private Tresor tresor;
 	private Monstre monstre;
+
 	
 	private ArrayList<Mur> murlist = new ArrayList<>(); 
+
+	private ArrayList<Monstre> monstres;
+
 
 	private static BufferedReader fichier;
 	
 
+	/*
+	public Labyrinthe(String chemin) throws IOException {
+		GenererLabyrinthe(chemin);
+		for (int [] l : map) {
+			for (int element: l) {
+				System.out.print(element);
+			}
+			System.out.println("");
+		}
+	}
+	*/
 	public Labyrinthe(Hero hero,Tresor tresor, Monstre monstre, String chemin) throws IOException {
 		GenererLabyrinthe(chemin);
 		this.hero = hero;
 		this.tresor = tresor;
 		this.monstre = monstre;
+		
 	}
-	
+//	public void addMonstres() {
+//		int nb=Constante.nbMonstre;
+//		 for(int i=0;i<nb;i++) {
+//			 Monstre m=new Monstre();
+//			 this.monstres.add(m);
+//		 }
+//	}
 	
 	@Override
 	public void paint(Graphics g) {		
@@ -49,6 +72,10 @@ public class Labyrinthe extends JPanel {
 		g.drawImage(hero.getImage(), hero.getX(), hero.getY(), 30, 30, null);
 		g.drawImage(tresor.getImage(), tresor.getX(), tresor.getY(), 30, 30, null);
 		g.drawImage(monstre.getImage(), monstre.getX(), monstre.getY(), 30, 30, null);
+		
+		//for(int i=0;i<this.monstres.size();i++) {
+			//g.drawImage(this.monstres.get(i).getImage(), this.monstres.get(i).getX(), this.monstres.get(i).getY(), 30, 30, null);
+		//}
 	}
 	
 	public static void GenererLabyrinthe(String chemin) throws IOException{

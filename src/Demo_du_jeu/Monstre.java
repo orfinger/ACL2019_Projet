@@ -4,8 +4,8 @@ public class Monstre extends BaseElement{
 
 	public Monstre() {
 		super();
-		this.x=90;
-		this.y=90;
+		this.x=(int)(Math.random() * ((500) + 1))+60;
+		this.y=(int)(Math.random() * ((100) + 1))+60;
 		this.path="src/resource/monstre.jpg";
 	}
 }
