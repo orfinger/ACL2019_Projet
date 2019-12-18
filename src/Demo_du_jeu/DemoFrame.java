@@ -21,7 +21,7 @@ public class DemoFrame extends JFrame{
 		
 		Hero hero = new Hero();
 		Tresor tresor = new Tresor();
-		Monstre monstre = new Monstre();
+		Monstre monstre = new Monstre(hero);
 		
 		Labyrinthe panel = new Labyrinthe(hero,tresor,monstre,"Labyrinthe.txt");
 //		panel.addMonstres();
@@ -80,10 +80,17 @@ public class DemoFrame extends JFrame{
 		};
 		
 		this.addKeyListener(key);
+		int count = 0;
+		double speed = 0.1;
 		
 		while(true) {
 			Thread.sleep(5);
+			count+=1; 
 			panel.repaint();
+			if (count>( (int)1/speed)) { //Speed vitesse de déplacement du monstre
+				monstre.suivreHero(hero);
+				count = 0;
+			}	
 		}
 	}
 	
