@@ -16,9 +16,9 @@ public class Monstre extends BaseElement {
 		int range = 300;
 		System.out.println(dx + " " + dy);
 		if (radial_distance < range) {
-			if (dx != 0)
+			if (Math.abs(dx) > 30)
 				this.x = this.x + dx / Math.abs(dx);
-			if (dy != 0)
+			if (Math.abs(dy) > 30)
 				this.y = this.y + dy / Math.abs(dy);
 		}
 
