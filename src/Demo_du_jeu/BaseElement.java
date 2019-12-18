@@ -9,11 +9,13 @@ public abstract class BaseElement {
 	protected int x,y,width,height;
 	protected String path;
 	protected Image image;
+	protected Direction direction;
 	
 	public BaseElement() {
 		
 		this.width = Constante.ELEMENT_SIZE;
 		this.height = Constante.ELEMENT_SIZE;
+		this.direction = Direction.LEFT;
 	}
 
 	public Image getImage() {

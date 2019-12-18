@@ -22,10 +22,16 @@ public class Labyrinthe extends JPanel {
 	private Hero hero;
 	private Tresor tresor;
 	private Monstre monstre;
+
+	
+	private ArrayList<Mur> murlist = new ArrayList<>(); 
+
 	private ArrayList<Monstre> monstres;
+
 
 	private static BufferedReader fichier;
 	
+
 	/*
 	public Labyrinthe(String chemin) throws IOException {
 		GenererLabyrinthe(chemin);
@@ -37,9 +43,6 @@ public class Labyrinthe extends JPanel {
 		}
 	}
 	*/
-	
-	
-	
 	public Labyrinthe(Hero hero,Tresor tresor, Monstre monstre, String chemin) throws IOException {
 		GenererLabyrinthe(chemin);
 		this.hero = hero;
@@ -59,7 +62,6 @@ public class Labyrinthe extends JPanel {
 	public void paint(Graphics g) {		
 		super.paint(g);
 		Image image = new ImageIcon("src/resource/wallunite.jpg").getImage();
-		//g.drawImage(image, 30, 30, 30, 30, null);//x,y,w,h
 		for (int i=0; i<map.length; i++) {
 			for (int j=0; j<map[0].length; j++) {
 				if (map[i][j]==1) {
