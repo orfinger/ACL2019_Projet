@@ -1,5 +1,7 @@
 package Demo_du_jeu;
 
+import java.awt.event.KeyEvent;
+
 public class Hero extends BaseElement{
 
 	public Hero() {
