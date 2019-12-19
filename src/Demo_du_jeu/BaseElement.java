@@ -51,7 +51,6 @@ public abstract class BaseElement {
     	int dx = this.getX() - element.getX();
 		int dy = this.getY() - element.getY();
 		int radial_distance = (int) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-		System.out.println((radial_distance));
     	return (radial_distance<=30);
       
     }

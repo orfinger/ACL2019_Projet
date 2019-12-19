@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 import javax.swing.*;
 
 public class Labyrinthe extends JPanel {
@@ -24,10 +23,20 @@ public class Labyrinthe extends JPanel {
 	private Monstre monstre;
 	public static int lenth=0;
 	
-	private ArrayList<Mur> murlist = new ArrayList<>(); 
-
-	private ArrayList<Monstre> monstres;
-
+	private static ArrayList<Mur> murlist = new ArrayList<>(); 
+	public ArrayList<Mur> getMurList(){
+		return murlist;
+	}
+	
+	public <E extends BaseElement> boolean intersectsMur(E element){
+		for (Mur j : murlist) {
+			if (j.intersects(element)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	//private ArrayList<Monstre> monstres;
 
 	private static BufferedReader fichier;
 	
@@ -106,6 +115,16 @@ public class Labyrinthe extends JPanel {
 			}
 			
 		}
+		for (int i = 0;i<map.length;i++) {
+			for (int j = 0;j<map[i].length;j++) {
+				if (map[i][j]==1) {
+					Mur mur=new Mur();
+					mur.setX(j*30);
+					mur.setY(i*30);
+					murlist.add(mur);
+				}
+			}
+		}
 	}
-		
+	
 }
