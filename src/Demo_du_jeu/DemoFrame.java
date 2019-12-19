@@ -104,7 +104,7 @@ public class DemoFrame extends JFrame{
 			Thread.sleep(5);
 			count+=1; 
 			panel.repaint();
-			if (count>( (int)1/speed)) { //Speed vitesse de deplacement du monstre
+			if (count>( (int)1/speed)&&!panel.intersectsMur(monstre)) { //Speed vitesse de deplacement du monstre
 				monstre.suivreHero(hero);
 				count = 0;
 			}
