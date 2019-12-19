@@ -22,7 +22,7 @@ public class Labyrinthe extends JPanel {
 	private Hero hero;
 	private Tresor tresor;
 	private Monstre monstre;
-
+	public static int lenth=0;
 	
 	private ArrayList<Mur> murlist = new ArrayList<>(); 
 
@@ -63,7 +63,7 @@ public class Labyrinthe extends JPanel {
 		super.paint(g);
 		Image image = new ImageIcon("src/resource/wallunite.jpg").getImage();
 		for (int i=0; i<map.length; i++) {
-			for (int j=0; j<map[0].length; j++) {
+			for (int j=0; j<lenth; j++) {
 				if (map[i][j]==1) {
 					g.drawImage(image, j*30, i*30, 30, 30, null);
 				}
@@ -82,10 +82,15 @@ public class Labyrinthe extends JPanel {
 		fichier = new BufferedReader(new FileReader(chemin));
 		String ligne;
 		ArrayList<int []> liste = new ArrayList<int []>();
+		
+			
 		while( ( ligne = fichier.readLine() ) != null ){
 				String [] ligne_lettre = ligne.split("");
-				int [] ligne_chiffre = new int [ligne.length()];
-				for (int j=0;j<ligne.length();j++) {
+				if(ligne_lettre.length>lenth) {
+					lenth=ligne_lettre.length;
+				}
+				int [] ligne_chiffre = new int [lenth];
+				for (int j=0;j<ligne_lettre.length;j++) {
 					int chiffre = 0;
 					if (ligne_lettre[j].equals("1")) {
 						chiffre = 1;
@@ -94,9 +99,12 @@ public class Labyrinthe extends JPanel {
 				}
 				liste.add(ligne_chiffre);
 		}
-		map = new int [liste.size()][liste.get(0).length];
+		map = new int [liste.size()][lenth];
 		for (int i = 0;i<liste.size();i++) {
-			map[i] = liste.get(i);
+			for(int j=0;j<liste.get(i).length;j++) {
+				map[i][j] = liste.get(i)[j];
+			}
+			
 		}
 	}
 		
