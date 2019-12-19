@@ -127,6 +127,10 @@ public class DemoFrame extends JFrame{
 		}
 	}
 	
+	
+	
+	
+	
 	public static void main(String[] args) throws IOException {
 		try {
 			initilasation niveau= new initilasation(2);
