@@ -1,10 +1,12 @@
 package Demo_du_jeu;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-
-import javax.swing.JFrame;
+import java.awt.*;
+import javax.swing.*;
 
 
 public class DemoFrame extends JFrame{
@@ -13,38 +15,58 @@ public class DemoFrame extends JFrame{
 	 * v0.4
 	 */
 	private static final long serialVersionUID = 1L;
+	protected String path;
 
 	public DemoFrame() throws InterruptedException, IOException {
 		this.setTitle("Demo");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		this.setVisible(true);
 
-		Hero hero = new Hero();
+		JPanel choisirNiveau= new JPanel(new GridLayout(1, 1));
+        JButton btn1 = new JButton("Niveau 1");
+        btn1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                path="Labyrinthe.txt";
+            }
+        });
+        choisirNiveau.add(btn1);
+        
+        JButton btn2 = new JButton("Niveau 2");
+        btn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                path="Lab2.txt";
+            }
+        });
+        choisirNiveau.add(btn2);
+        
+        JButton btn3 = new JButton("Niveau 3");
+        btn3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                path="Lab3.txt";
+            }
+        });
+        choisirNiveau.add(btn3);
+        this.setContentPane(choisirNiveau);
+        this.setSize(600,600);
+        while(path==null) {
+			Thread.sleep(5);
+        }
+        
+        Hero hero = new Hero();
 		Tresor tresor = new Tresor();
-		Monstre monstre = new Monstre(hero);
-
-		Labyrinthe panel = new Labyrinthe(hero,tresor,monstre,"Labyrinthe.txt");
+		Monstre monstre = new Monstre();
+		
+		Labyrinthe panel = new Labyrinthe(hero,tresor,monstre,path);
 		this.setSize(60 + Labyrinthe.lenth*30,60 + Labyrinthe.map.length*30);
-		this.add(panel); //add panel to frame
-		this.setVisible(true);
-
-		//		 this.addKeyListener(new KeyAdapter() {
-		//	            @Override
-		//	            public void keyPressed(KeyEvent e) {
-		//	                Keys.add(e.getKeyCode());
-		//	            }
-		//
-		//	            @Override
-		//	            public void keyReleased(KeyEvent e) {
-		//	                Keys.remove(e.getKeyCode());
-		//	            }
-		//	        });
-
+		this.setContentPane(panel);
+		//this.add(panel); //add panel to frame
+		this.requestFocus();
 		this.addKeyListener(new KeyAdapter(){
 
 			@Override
-
 			public void keyPressed(KeyEvent e) {
 				Hero a = new Hero();
 				Keys.add(e.getKeyCode());
@@ -95,8 +117,7 @@ public class DemoFrame extends JFrame{
 			public void keyTyped(KeyEvent e) {}
 
 		});
-
-
+		
 		int count = 0;
 		int count1 = 0;
 		double speed = 0.1;
