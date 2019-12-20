@@ -119,10 +119,11 @@ public class DemoFrame extends JFrame{
 		});
 		
 		int count = 0;
-		int count1 = 0;
+		//int count1 = 0;
 		double speed = 0.1;
 
-
+		Thread heroThread = new Thread(hero);
+		heroThread.start();
 		while(true) {
 			Thread.sleep(5);
 			count+=1; 
@@ -132,17 +133,17 @@ public class DemoFrame extends JFrame{
 				count = 0;
 			}
 
-			if (hero.attack) {
-				hero.path = "src/resource/Character_AttackRight.png";
-				count1++;
-				if (hero.aCote(monstre))
-					monstre.path = "src/resource/wall.jpg ";
-				if (count1==40) {
-					hero.path = "src/resource/Character_Right.png";
-					hero.attack = false;
-					count1=0;
-				}
-			}
+//			if (hero.attack) {
+//				hero.path = "src/resource/Character_AttackRight.png";
+//				count1++;
+//				if (hero.aCote(monstre))
+//					monstre.path = "src/resource/wall.jpg ";
+//				if (count1==40) {
+//					hero.path = "src/resource/Character_Right.png";
+//					hero.attack = false;
+//					count1=0;
+//				}
+//			}
 		}
 	}
 

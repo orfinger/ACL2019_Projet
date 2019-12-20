@@ -81,10 +81,6 @@ public class Labyrinthe extends JPanel {
 		g.drawImage(hero.getImage(), hero.getX(), hero.getY(), 30, 30, null);
 		g.drawImage(tresor.getImage(), tresor.getX(), tresor.getY(), 30, 30, null);
 		g.drawImage(monstre.getImage(), monstre.getX(), monstre.getY(), 30, 30, null);
-		
-		//for(int i=0;i<this.monstres.size();i++) {
-			//g.drawImage(this.monstres.get(i).getImage(), this.monstres.get(i).getX(), this.monstres.get(i).getY(), 30, 30, null);
-		//}
 	}
 	
 	public static void GenererLabyrinthe(String chemin) throws IOException{
