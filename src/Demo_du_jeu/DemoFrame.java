@@ -85,7 +85,7 @@ public class DemoFrame extends JFrame{
 					a.setY(a.getY()-5);
 					if (!a.intersects(tresor)&&!a.intersects(monstre)&&!panel.intersectsMur(a)) {
 						hero.setY(hero.getY() - 5);	
-						hero.setPaintY(hero.getY());
+						hero.setPaintY(hero.getPaintY() - 5);
 					}
 				} else if (Keys.DOWN.use()) {
 					hero.move = true;
@@ -93,7 +93,7 @@ public class DemoFrame extends JFrame{
 					a.setY(a.getY()+5);
 					if (!a.intersects(tresor)&&!a.intersects(monstre)&&!panel.intersectsMur(a)) {
 						hero.setY(hero.getY() + 5);	
-						hero.setPaintY(hero.getY());
+						hero.setPaintY(hero.getPaintY() + 5);
 					}
 				} 
 				if (Keys.LEFT.use()) {
@@ -102,7 +102,7 @@ public class DemoFrame extends JFrame{
 					a.setX(a.getX()-5);
 					if (!a.intersects(tresor)&&!a.intersects(monstre)&&!panel.intersectsMur(a)) {
 						hero.setX(hero.getX() - 5);	
-						hero.setPaintX(hero.getX());
+						hero.setPaintX(hero.getPaintX() - 5);
 					}
 				} else if (Keys.RIGHT.use()) {
 					hero.move = true;
@@ -110,7 +110,7 @@ public class DemoFrame extends JFrame{
 					a.setX(a.getX()+5);
 					if (!a.intersects(tresor)&&!a.intersects(monstre)&&!panel.intersectsMur(a)) {
 						hero.setX(hero.getX() + 5);	
-						hero.setPaintX(hero.getX());
+						hero.setPaintX(hero.getPaintX() + 5);
 					}
 				} 
 
@@ -122,7 +122,7 @@ public class DemoFrame extends JFrame{
 			@Override
 			public void keyReleased(KeyEvent e) {
 				Keys.remove(e.getKeyCode());
-				if (Keys.isEmpty()) {
+				if (Keys.noMove()) {
 					hero.move = false;		
 				}	
 			}

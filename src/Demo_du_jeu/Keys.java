@@ -55,7 +55,13 @@ public enum Keys {
      *
      * @return
      */
-    public static boolean isEmpty() {
-        return cleSet.isEmpty();
+    public static boolean noMove() {
+    	if(!cleSet.contains(KeyEvent.VK_LEFT)&&!cleSet.contains(KeyEvent.VK_RIGHT)&&!cleSet.contains(KeyEvent.VK_UP)&&!cleSet.contains(KeyEvent.VK_DOWN)) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+       
     }
 }

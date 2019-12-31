@@ -30,7 +30,7 @@ public class Hero extends BaseElement implements Runnable{
 	public void setPaintY(int y) {
 		this.paintY=y;
 	}
-	public void standing(){
+	public synchronized void  standing(){
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -121,19 +121,19 @@ public class Hero extends BaseElement implements Runnable{
 		switch(this.direction) {
 		case RIGHT:
 			try {
-				Thread.sleep(20);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			this.path = "src/resource/hero-ar1.png";
 			try {
-				Thread.sleep(20);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			this.path = "src/resource/hero-ar2.png";
 			try {
-				Thread.sleep(20);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -147,21 +147,21 @@ public class Hero extends BaseElement implements Runnable{
 			break;
 		case LEFT:		
 			try {
-				Thread.sleep(20);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			this.path = "src/resource/hero-al1.png";
 			this.paintX-=17;
 			try {
-				Thread.sleep(20);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			this.path = "src/resource/hero-al2.png";
 			this.paintX-=3;
 			try {
-				Thread.sleep(20);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -175,10 +175,61 @@ public class Hero extends BaseElement implements Runnable{
 			this.path = "src/resource/hero-l.png";		
 			break;
 		case UP:
-			this.path = "src/resource/hero-ar1.png";
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-ab1.png";
+			this.paintY-=5;
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-ab2.png";
+			this.paintY+=1;
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.paintY+=4;
+			this.path = "src/resource/hero-ab3.png";
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-b.png";		
 			break;
 		case DOWN:
-			this.path = "src/resource/hero-ar1.png";
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-af1.png";
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-af2.png";
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-af3.png";
+			this.paintX-=11;
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.paintX+=11;
+			this.path = "src/resource/hero-f.png";		
 			break;
 		default:;
 		}
