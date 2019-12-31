@@ -41,17 +41,6 @@ public class Labyrinthe extends JPanel {
 	private static BufferedReader fichier;
 	
 
-	/*
-	public Labyrinthe(String chemin) throws IOException {
-		GenererLabyrinthe(chemin);
-		for (int [] l : map) {
-			for (int element: l) {
-				System.out.print(element);
-			}
-			System.out.println("");
-		}
-	}
-	*/
 	public Labyrinthe(Hero hero,Tresor tresor, Monstre monstre, String chemin) throws IOException {
 		GenererLabyrinthe(chemin);
 		this.hero = hero;
@@ -78,7 +67,7 @@ public class Labyrinthe extends JPanel {
 				}
 			}
 		}
-		g.drawImage(hero.getImage(), hero.getX(), hero.getY(), 30, 30, null);
+		g.drawImage(hero.getImage(), hero.getX(), hero.getY(), null);
 		g.drawImage(tresor.getImage(), tresor.getX(), tresor.getY(), 30, 30, null);
 		g.drawImage(monstre.getImage(), monstre.getX(), monstre.getY(), 30, 30, null);
 	}

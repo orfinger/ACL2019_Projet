@@ -49,4 +49,13 @@ public enum Keys {
     public static void remove(int keyCode) {
         cleSet.remove(keyCode);
     }
+    
+    /**
+     * Si null
+     *
+     * @return
+     */
+    public static boolean isEmpty() {
+        return cleSet.isEmpty();
+    }
 }

@@ -64,6 +64,8 @@ public class DemoFrame extends JFrame{
 		this.setContentPane(panel);
 		//this.add(panel); //add panel to frame
 		this.requestFocus();
+		
+		
 		this.addKeyListener(new KeyAdapter(){
 
 			@Override
@@ -73,14 +75,18 @@ public class DemoFrame extends JFrame{
 
 				a.setX(hero.getX());
 				a.setY(hero.getY());
-
+				
+				new Thread(hero).start();
+				
 				if (Keys.UP.use()) {
+					hero.move = true;
 					hero.direction = Direction.UP;
 					a.setY(a.getY()-5);
 					if (!a.intersects(tresor)&&!a.intersects(monstre)&&!panel.intersectsMur(a)) {
 						hero.setY(hero.getY() - 5);		
 					}
 				} else if (Keys.DOWN.use()) {
+					hero.move = true;
 					hero.direction = Direction.DOWN;
 					a.setY(a.getY()+5);
 					if (!a.intersects(tresor)&&!a.intersects(monstre)&&!panel.intersectsMur(a)) {
@@ -88,12 +94,14 @@ public class DemoFrame extends JFrame{
 					}
 				} 
 				if (Keys.LEFT.use()) {
+					hero.move = true;
 					hero.direction = Direction.LEFT;
 					a.setX(a.getX()-5);
 					if (!a.intersects(tresor)&&!a.intersects(monstre)&&!panel.intersectsMur(a)) {
 						hero.setX(hero.getX() - 5);	
 					}
 				} else if (Keys.RIGHT.use()) {
+					hero.move = true;
 					hero.direction = Direction.RIGHT;
 					a.setX(a.getX()+5);
 					if (!a.intersects(tresor)&&!a.intersects(monstre)&&!panel.intersectsMur(a)) {
@@ -102,7 +110,7 @@ public class DemoFrame extends JFrame{
 				} 
 
 				if (Keys.ATTACK.use()) {
-					hero.attack = true;
+					hero.attack = true;				
 				}	
 			}
 
@@ -110,7 +118,25 @@ public class DemoFrame extends JFrame{
 
 			public void keyReleased(KeyEvent e) {
 				Keys.remove(e.getKeyCode());
-
+				if (Keys.isEmpty()) {
+					hero.move = false;	
+					switch(hero.direction) {
+					case RIGHT:
+						hero.path = "src/resource/hero-r.png";
+						break;
+					case LEFT:
+						hero.path = "src/resource/hero-l.png";
+						break;
+					case UP:
+						hero.path = "src/resource/hero-b.png";
+						break;
+					case DOWN:
+						hero.path = "src/resource/hero-f.png";
+						break;
+					default:
+						hero.path = "src/resource/hero-r.png";
+					}	
+				}	
 			}
 
 			@Override
@@ -119,31 +145,23 @@ public class DemoFrame extends JFrame{
 		});
 		
 		int count = 0;
-		//int count1 = 0;
 		double speed = 0.1;
 
-		Thread heroThread = new Thread(hero);
-		heroThread.start();
 		while(true) {
-			Thread.sleep(5);
 			count+=1; 
 			panel.repaint();
-			if (count>( (int)1/speed)&&!panel.intersectsMur(monstre)) { //Speed vitesse de deplacement du monstre
+			if (count>0.05*( (int)1/speed)&&!panel.intersectsMur(monstre)) { //Speed vitesse de deplacement du monstre
 				monstre.suivreHero(hero);
 				count = 0;
 			}
 
-//			if (hero.attack) {
-//				hero.path = "src/resource/Character_AttackRight.png";
-//				count1++;
-//				if (hero.aCote(monstre))
-//					monstre.path = "src/resource/wall.jpg ";
-//				if (count1==40) {
-//					hero.path = "src/resource/Character_Right.png";
-//					hero.attack = false;
-//					count1=0;
-//				}
-//			}
+			if (hero.attack) {
+				new Thread(hero).start();
+
+				if (hero.aCote(monstre))
+					monstre.path = "src/resource/wall.jpg ";
+
+			}
 		}
 	}
 
