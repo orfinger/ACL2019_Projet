@@ -15,7 +15,7 @@ public abstract class BaseElement {
 		
 		this.width = Constante.ELEMENT_SIZE;
 		this.height = Constante.ELEMENT_SIZE;
-		this.direction = Direction.LEFT;
+		this.direction = Direction.RIGHT;
 	}
 
 	public Image getImage() {

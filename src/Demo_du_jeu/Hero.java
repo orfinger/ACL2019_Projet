@@ -3,19 +3,58 @@ package Demo_du_jeu;
 public class Hero extends BaseElement implements Runnable{
 	public boolean attack;
 	public boolean move;
+	protected int paintX,paintY;
 	public Hero() {
 		super();
 		this.x = 30;
 		this.y = 30;
+		this.paintX = this.x;
+		this.paintY = this.y;
 		this.height = 30;
 		this.width = 21;
 		this.path = "src/resource/hero-r.png";
 		attack = false;
 		move = false;
 	}
+	public int getPaintX() {
+		return this.paintX;
+	}
 	
+	public int getPaintY() {
+		return this.paintY;
+	}
+	public void setPaintX(int x) {
+		this.paintX=x;
+	}
 	
-	public void move(){
+	public void setPaintY(int y) {
+		this.paintY=y;
+	}
+	public void standing(){
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		switch(this.direction) {
+		case RIGHT:
+			this.path = "src/resource/hero-r.png";
+			break;
+		case LEFT:
+			this.path = "src/resource/hero-l.png";
+			break;
+		case UP:
+			this.path = "src/resource/hero-b.png";
+			break;
+		case DOWN:
+			this.path = "src/resource/hero-f.png";
+			break;
+		default:
+			this.path = "src/resource/hero-r.png";
+		}
+	}
+	
+	public synchronized void move(){
 		switch(this.direction) {
 		case RIGHT:
 			try {
@@ -78,57 +117,85 @@ public class Hero extends BaseElement implements Runnable{
 		
 	}
 	
-	public void attack(){
-//		switch(this.direction) {
-//		case RIGHT:
-//			this.path = "src/resource/hero-ar1.png";
-//			break;
-//		case LEFT:
-//			this.path = "src/resource/hero-ar1.png";
-//			break;
-//		case UP:
-//			this.path = "src/resource/hero-ar1.png";
-//			break;
-//		case DOWN:
-//			this.path = "src/resource/hero-ar1.png";
-//			break;
-//		default:;
-//		}
-		try {
-			Thread.sleep(20);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+	public synchronized void attack(){
+		switch(this.direction) {
+		case RIGHT:
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-ar1.png";
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-ar2.png";
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-ar3.png";
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-r.png";
+			break;
+		case LEFT:		
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-al1.png";
+			this.paintX-=17;
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-al2.png";
+			this.paintX-=3;
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-al3.png";
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.paintX+=20;
+			this.path = "src/resource/hero-l.png";		
+			break;
+		case UP:
+			this.path = "src/resource/hero-ar1.png";
+			break;
+		case DOWN:
+			this.path = "src/resource/hero-ar1.png";
+			break;
+		default:;
 		}
-		this.path = "src/resource/hero-ar1.png";
-		try {
-			Thread.sleep(20);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		this.path = "src/resource/hero-ar2.png";
-		try {
-			Thread.sleep(20);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		this.path = "src/resource/hero-ar3.png";
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		this.path = "src/resource/hero-r.png";
+		
 		this.attack = false;
 	}
 
 	public void run() {
-		synchronized (this.path) {
-			if (attack) {
-				this.attack();
-			}
-			if (move) {
-				this.move();
-			}
+		while (true) {
+			synchronized (this.path) {
+				if (attack) {
+					this.attack();
+				} else if (move) {
+					this.move();
+					this.standing();
+				}
+			} 
 		}
 	}    
 

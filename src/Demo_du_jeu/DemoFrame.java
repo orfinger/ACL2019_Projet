@@ -17,6 +17,8 @@ public class DemoFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	protected String path;
 
+	private Thread threadHero;
+	
 	public DemoFrame() throws InterruptedException, IOException {
 		this.setTitle("Demo");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,13 +58,14 @@ public class DemoFrame extends JFrame{
         }
         
         Hero hero = new Hero();
-		Tresor tresor = new Tresor();
-		Monstre monstre = new Monstre();
-		
+        Tresor tresor = new Tresor();
+        Monstre monstre = new Monstre();
+        
+        threadHero = new Thread(hero);
+        
 		Labyrinthe panel = new Labyrinthe(hero,tresor,monstre,path);
 		this.setSize(60 + Labyrinthe.lenth*30,60 + Labyrinthe.map.length*30);
 		this.setContentPane(panel);
-		//this.add(panel); //add panel to frame
 		this.requestFocus();
 		
 		
@@ -76,21 +79,21 @@ public class DemoFrame extends JFrame{
 				a.setX(hero.getX());
 				a.setY(hero.getY());
 				
-				new Thread(hero).start();
-				
 				if (Keys.UP.use()) {
 					hero.move = true;
 					hero.direction = Direction.UP;
 					a.setY(a.getY()-5);
 					if (!a.intersects(tresor)&&!a.intersects(monstre)&&!panel.intersectsMur(a)) {
-						hero.setY(hero.getY() - 5);		
+						hero.setY(hero.getY() - 5);	
+						hero.setPaintY(hero.getY());
 					}
 				} else if (Keys.DOWN.use()) {
 					hero.move = true;
 					hero.direction = Direction.DOWN;
 					a.setY(a.getY()+5);
 					if (!a.intersects(tresor)&&!a.intersects(monstre)&&!panel.intersectsMur(a)) {
-						hero.setY(hero.getY() + 5);		
+						hero.setY(hero.getY() + 5);	
+						hero.setPaintY(hero.getY());
 					}
 				} 
 				if (Keys.LEFT.use()) {
@@ -99,13 +102,15 @@ public class DemoFrame extends JFrame{
 					a.setX(a.getX()-5);
 					if (!a.intersects(tresor)&&!a.intersects(monstre)&&!panel.intersectsMur(a)) {
 						hero.setX(hero.getX() - 5);	
+						hero.setPaintX(hero.getX());
 					}
 				} else if (Keys.RIGHT.use()) {
 					hero.move = true;
 					hero.direction = Direction.RIGHT;
 					a.setX(a.getX()+5);
 					if (!a.intersects(tresor)&&!a.intersects(monstre)&&!panel.intersectsMur(a)) {
-						hero.setX(hero.getX() + 5);		
+						hero.setX(hero.getX() + 5);	
+						hero.setPaintX(hero.getX());
 					}
 				} 
 
@@ -115,49 +120,33 @@ public class DemoFrame extends JFrame{
 			}
 
 			@Override
-
 			public void keyReleased(KeyEvent e) {
 				Keys.remove(e.getKeyCode());
 				if (Keys.isEmpty()) {
-					hero.move = false;	
-					switch(hero.direction) {
-					case RIGHT:
-						hero.path = "src/resource/hero-r.png";
-						break;
-					case LEFT:
-						hero.path = "src/resource/hero-l.png";
-						break;
-					case UP:
-						hero.path = "src/resource/hero-b.png";
-						break;
-					case DOWN:
-						hero.path = "src/resource/hero-f.png";
-						break;
-					default:
-						hero.path = "src/resource/hero-r.png";
-					}	
+					hero.move = false;		
 				}	
 			}
 
 			@Override
 			public void keyTyped(KeyEvent e) {}
-
 		});
 		
 		int count = 0;
 		double speed = 0.1;
+		
+		threadHero.start();
 
 		while(true) {
+			
+//			System.out.println(Thread.activeCount());
+			
 			count+=1; 
 			panel.repaint();
 			if (count>0.05*( (int)1/speed)&&!panel.intersectsMur(monstre)) { //Speed vitesse de deplacement du monstre
 				monstre.suivreHero(hero);
 				count = 0;
 			}
-
-			if (hero.attack) {
-				new Thread(hero).start();
-
+			if (hero.attack) {			
 				if (hero.aCote(monstre))
 					monstre.path = "src/resource/wall.jpg ";
 

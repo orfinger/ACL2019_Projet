@@ -67,7 +67,7 @@ public class Labyrinthe extends JPanel {
 				}
 			}
 		}
-		g.drawImage(hero.getImage(), hero.getX(), hero.getY(), null);
+		g.drawImage(hero.getImage(), hero.getPaintX(), hero.getPaintY(), null);
 		g.drawImage(tresor.getImage(), tresor.getX(), tresor.getY(), 30, 30, null);
 		g.drawImage(monstre.getImage(), monstre.getX(), monstre.getY(), 30, 30, null);
 	}
