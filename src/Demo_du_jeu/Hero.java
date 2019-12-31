@@ -1,44 +1,135 @@
 package Demo_du_jeu;
 
-
 public class Hero extends BaseElement implements Runnable{
 	public boolean attack;
+	public boolean move;
 	public Hero() {
 		super();
 		this.x = 30;
 		this.y = 30;
-		this.path = "src/resource/Character_Right.png";
+		this.height = 30;
+		this.width = 21;
+		this.path = "src/resource/hero-r.png";
 		attack = false;
+		move = false;
 	}
 	
-	public void attack(){
+	
+	public void move(){
 		switch(this.direction) {
 		case RIGHT:
-			this.path = "src/resource/Character_AttackRight.png";
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-r1.png";
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-r2.png";
 			break;
 		case LEFT:
-			this.path = "src/resource/Character_AttackRight.png";
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-l1.png";
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-l2.png";
 			break;
 		case UP:
-			this.path = "src/resource/Character_AttackRight.png";
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-b1.png";
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-b2.png";
 			break;
 		case DOWN:
-			this.path = "src/resource/Character_AttackRight.png";
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-f1.png";
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.path = "src/resource/hero-f2.png";
 			break;
 		default:;
 		}
+		
 	}
 	
+	public void attack(){
+//		switch(this.direction) {
+//		case RIGHT:
+//			this.path = "src/resource/hero-ar1.png";
+//			break;
+//		case LEFT:
+//			this.path = "src/resource/hero-ar1.png";
+//			break;
+//		case UP:
+//			this.path = "src/resource/hero-ar1.png";
+//			break;
+//		case DOWN:
+//			this.path = "src/resource/hero-ar1.png";
+//			break;
+//		default:;
+//		}
+		try {
+			Thread.sleep(20);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		this.path = "src/resource/hero-ar1.png";
+		try {
+			Thread.sleep(20);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		this.path = "src/resource/hero-ar2.png";
+		try {
+			Thread.sleep(20);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		this.path = "src/resource/hero-ar3.png";
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		this.path = "src/resource/hero-r.png";
+		this.attack = false;
+	}
+
 	public void run() {
-		System.out.println("Hello from a thread!");
-		 while(attack){
-	          this.attack();
-	          try {
-	            Thread.sleep(1000);
-	          } catch (InterruptedException e) {
-	            e.printStackTrace();
-	          }
-	      }
+		synchronized (this.path) {
+			if (attack) {
+				this.attack();
+			}
+			if (move) {
+				this.move();
+			}
+		}
 	}    
 
 }
