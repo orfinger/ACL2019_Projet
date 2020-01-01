@@ -5,7 +5,7 @@ public class Mur extends BaseElement{
 		super();
 		this.x=0;
 		this.y=0;
-		this.path="src/resource/wallunite.jpg";
+		this.path="src/resource/wall.png";
 		
 	}
 }

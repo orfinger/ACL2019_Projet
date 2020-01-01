@@ -6,7 +6,7 @@ public class Tresor extends BaseElement {
 		super();
 		this.x=90;
 		this.y=180;
-		this.path="src/resource/tresor.jpg";
+		this.path="src/resource/tresor.png";
 		
 	}
 

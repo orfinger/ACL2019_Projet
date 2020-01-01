@@ -59,16 +59,25 @@ public class Labyrinthe extends JPanel {
 	@Override
 	public void paint(Graphics g) {		
 		super.paint(g);
-		Image image = new ImageIcon("src/resource/wallunite.jpg").getImage();
+		Image image = new ImageIcon("src/resource/wall.png").getImage();
+		Image prairie0 = new ImageIcon("src/resource/prairie0.png").getImage();
+		Image prairie1 = new ImageIcon("src/resource/prairie1.png").getImage();
 		for (int i=0; i<map.length; i++) {
 			for (int j=0; j<lenth; j++) {
 				if (map[i][j]==1) {
-					g.drawImage(image, j*30, i*30, 30, 30, null);
+					g.drawImage(image, j*30, i*30, null);
+				}else {
+					if (map[i][j]==2) {
+						g.drawImage(prairie1, j * 30, i * 30, null);
+					}
+					else {
+						g.drawImage(prairie0, j * 30, i * 30, null);
+					}
 				}
 			}
 		}
 		g.drawImage(hero.getImage(), hero.getPaintX(), hero.getPaintY(), null);
-		g.drawImage(tresor.getImage(), tresor.getX(), tresor.getY(), 30, 30, null);
+		g.drawImage(tresor.getImage(), tresor.getX(), tresor.getY(), null);
 		g.drawImage(monstre.getImage(), monstre.getX(), monstre.getY(), 30, 30, null);
 	}
 	
@@ -97,6 +106,11 @@ public class Labyrinthe extends JPanel {
 		for (int i = 0;i<liste.size();i++) {
 			for(int j=0;j<liste.get(i).length;j++) {
 				map[i][j] = liste.get(i)[j];
+				if (map[i][j]!=1) {
+					if (Math.random()>0.8) {
+						map[i][j]=2;
+					}
+				}
 			}
 			
 		}
