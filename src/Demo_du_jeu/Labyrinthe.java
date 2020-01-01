@@ -20,8 +20,7 @@ public class Labyrinthe extends JPanel {
 	
 	private Hero hero;
 	private Tresor tresor;
-	private Monstre monstre;
-	public static int lenth=0;
+	public static int length;
 	
 	private static ArrayList<Mur> murlist = new ArrayList<>(); 
 	public ArrayList<Mur> getMurList(){
@@ -36,25 +35,51 @@ public class Labyrinthe extends JPanel {
 		}
 		return false;
 	}
-	//private ArrayList<Monstre> monstres;
-
+	
+	private ArrayList<Monstre> monstrelist;
+	
+	public ArrayList<Monstre> getMonstreList(){
+		return monstrelist;
+	}
+	public void setMonstreList(ArrayList<Monstre> a){
+		this.monstrelist=a;
+	}
+	
+	public <E extends BaseElement> boolean intersectsMonstre(E element){
+		for (Monstre j : monstrelist) {
+			if (j.intersects(element)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void addMonstre() {
+		for(int i=0;i<Constante.nbMonstre;i++) {
+			Monstre m=new Monstre();
+			m.setX((int) (Math.random() * map.length *10)); 
+			m.setY((int) (Math.random() * length *10)); 
+			if(!this.intersectsMur(m)&&!this.intersectsMonstre(m)) {
+				this.monstrelist.add(m);
+			}
+			else {
+				i--;
+			}
+		}
+	}
+	
+	
+	
+	
 	private static BufferedReader fichier;
 	
 
-	public Labyrinthe(Hero hero,Tresor tresor, Monstre monstre, String chemin) throws IOException {
+	public Labyrinthe(Hero hero,Tresor tresor, String chemin) throws IOException {
 		GenererLabyrinthe(chemin);
 		this.hero = hero;
-		this.tresor = tresor;
-		this.monstre = monstre;
-		
+		this.tresor = tresor;	
 	}
-//	public void addMonstres() {
-//		int nb=Constante.nbMonstre;
-//		 for(int i=0;i<nb;i++) {
-//			 Monstre m=new Monstre();
-//			 this.monstres.add(m);
-//		 }
-//	}
+
 	
 	@Override
 	public void paint(Graphics g) {		
@@ -63,7 +88,7 @@ public class Labyrinthe extends JPanel {
 		Image prairie0 = new ImageIcon("src/resource/prairie0.png").getImage();
 		Image prairie1 = new ImageIcon("src/resource/prairie1.png").getImage();
 		for (int i=0; i<map.length; i++) {
-			for (int j=0; j<lenth; j++) {
+			for (int j=0; j<length; j++) {
 				if (map[i][j]==1) {
 					g.drawImage(image, j*30, i*30, null);
 				}else {
@@ -78,7 +103,10 @@ public class Labyrinthe extends JPanel {
 		}
 		g.drawImage(hero.getImage(), hero.getPaintX(), hero.getPaintY(), null);
 		g.drawImage(tresor.getImage(), tresor.getX(), tresor.getY(), null);
-		g.drawImage(monstre.getImage(), monstre.getX(), monstre.getY(), 30, 30, null);
+		
+		for (Monstre j : monstrelist) {
+			g.drawImage(j.getImage(), j.getX(), j.getY(), null);
+		}
 	}
 	
 	public static void GenererLabyrinthe(String chemin) throws IOException{
@@ -89,10 +117,10 @@ public class Labyrinthe extends JPanel {
 			
 		while( ( ligne = fichier.readLine() ) != null ){
 				String [] ligne_lettre = ligne.split("");
-				if(ligne_lettre.length>lenth) {
-					lenth=ligne_lettre.length;
+				if(ligne_lettre.length>length) {
+					length=ligne_lettre.length;
 				}
-				int [] ligne_chiffre = new int [lenth];
+				int [] ligne_chiffre = new int [length];
 				for (int j=0;j<ligne_lettre.length;j++) {
 					int chiffre = 0;
 					if (ligne_lettre[j].equals("1")) {
@@ -102,7 +130,7 @@ public class Labyrinthe extends JPanel {
 				}
 				liste.add(ligne_chiffre);
 		}
-		map = new int [liste.size()][lenth];
+		map = new int [liste.size()][length];
 		for (int i = 0;i<liste.size();i++) {
 			for(int j=0;j<liste.get(i).length;j++) {
 				map[i][j] = liste.get(i)[j];

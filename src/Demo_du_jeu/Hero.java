@@ -114,7 +114,6 @@ public class Hero extends BaseElement implements Runnable{
 			break;
 		default:;
 		}
-		
 	}
 	
 	public synchronized void attack(){
