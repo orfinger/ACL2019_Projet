@@ -78,12 +78,66 @@ public class DemoFrame extends JFrame{
 			public void run() {
 				while(true) {
 					try {
-						Thread.sleep(100);
+						Thread.sleep((int)1000/Constante.MONSTRE_SPEED);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					for (Monstre j : monstrelist) {
-						j.suivreHero(hero);
+						int dx = hero.getX() - j.x;
+						int dy = hero.getY() - j.y;
+						int radial_distance = (int) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+						if (radial_distance < Constante.MONSTRE_DETECTION_RANGE) {
+							Monstre a = new Monstre();
+							a.setX(j.getX());
+							a.setY(j.getY());
+							if (dx > 0) {
+								a.setX(a.getX()+1);
+							}else if (dx < 0){
+								a.setX(a.getX()-1);
+							}
+							if (dy > 0) {
+								a.setY(a.getY()+1);
+							}else if (dy < 0){
+								a.setY(a.getY()-1);
+							}
+							if (!a.intersects(hero)&&!a.intersects(tresor)&&!panel.intersectsMur(a)) {	
+								j.setX(a.getX());
+								j.setY(a.getY());	
+							}
+//							else {
+//								a.setX(j.getX()+a.getY()-j.getY()); //tourne a droite
+//								a.setY(j.getY()-a.getX()+j.getX());
+//								System.out.println("ÓÒ"+(a.getX()-j.getX())+"--"+ (a.getY()-j.getY()));
+//								if (!a.intersects(tresor)&&!panel.intersectsMur(a)) {
+//									j.setX(a.getX());
+//									j.setY(a.getY());	
+//								}else {
+//									a.setX(j.getX()-a.getY()+j.getY()); //tourne a gauche
+//									a.setY(j.getY()+a.getX()-j.getX());
+//									if (!a.intersects(hero)&&!a.intersects(tresor)&&!panel.intersectsMur(a)) {
+//										System.out.println("×ó"+(a.getX()-j.getX())+"--"+ (a.getY()-j.getY()));
+//										j.setX(a.getX());
+//										j.setY(a.getY());	
+//									}
+//								}
+//							}
+							
+//							else {
+//								a.setX(j.getX()-a.getY()+j.getY()); //tourne a gauche
+//								a.setY(j.getX()+a.getX()-j.getX());
+//								if (!a.intersects(hero)&&!a.intersects(tresor)&&!panel.intersectsMur(a)) {
+//									j.setX(a.getX());
+//									j.setY(a.getY());	
+//								}else {
+//									a.setX(j.getX()+a.getY()-j.getY()); //tourne a droite
+//									a.setY(j.getX()-a.getX()+j.getX());
+//									if (!a.intersects(hero)&&!a.intersects(tresor)&&!panel.intersectsMur(a)) {
+//										j.setX(a.getX());
+//										j.setY(a.getY());	
+//									}
+//								}
+//							}
+						}		
 					}
 				}
 			}

@@ -57,8 +57,8 @@ public class Labyrinthe extends JPanel {
 	public void addMonstre() {
 		for(int i=0;i<Constante.nbMonstre;i++) {
 			Monstre m=new Monstre();
-			m.setX((int) (Math.random() * map.length *10)); 
-			m.setY((int) (Math.random() * length *10)); 
+			m.setX((int) (Math.random() * length *30)); 
+			m.setY((int) (Math.random() * map.length *30)); 
 			if(!this.intersectsMur(m)&&!this.intersectsMonstre(m)) {
 				this.monstrelist.add(m);
 			}

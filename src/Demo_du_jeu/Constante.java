@@ -7,7 +7,7 @@ public class Constante {
 	public final static int FRAME_HEIGHT = ELEMENT_SIZE * 25;
 	public final static String RESOURCES_PATH = "src/main/resource/";
 	public static int nbMonstre=3;
-
-
+	public final static int MONSTRE_SPEED = 30;
+	public final static int MONSTRE_DETECTION_RANGE = 300;
 }
 
