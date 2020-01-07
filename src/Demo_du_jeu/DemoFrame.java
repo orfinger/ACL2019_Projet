@@ -17,10 +17,12 @@ public class DemoFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	protected String path;
-
+	protected boolean init=false;
+	
 	private Thread threadHero;
 	private Thread SuivreHero;
 	private ArrayList<Monstre> monstrelist = new ArrayList<>();
+	
 	public DemoFrame() throws InterruptedException, IOException {
 		this.setTitle("Demo");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -144,41 +146,41 @@ public class DemoFrame extends JFrame{
 
 				a.setX(hero.getX());
 				a.setY(hero.getY());
-				if(hero.mort) {}
-				else if (Keys.UP.use()) {
-					hero.move = true;
-					hero.direction = Direction.UP;
-					a.setY(a.getY()-5);
-					if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
-						hero.setY(hero.getY() - 5);	
-						hero.setPaintY(hero.getPaintY() - 5);
-					}
-				} else if (Keys.DOWN.use()) {
-					hero.move = true;
-					hero.direction = Direction.DOWN;
-					a.setY(a.getY()+5);
-					if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
-						hero.setY(hero.getY() + 5);	
-						hero.setPaintY(hero.getPaintY() + 5);
-					}
-				} 
-				else if (Keys.LEFT.use()) {
-					hero.move = true;
-					hero.direction = Direction.LEFT;
-					a.setX(a.getX()-5);
-					if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
-						hero.setX(hero.getX() - 5);	
-						hero.setPaintX(hero.getPaintX() - 5);
-					}
-				} else if (Keys.RIGHT.use()) {
-					hero.move = true;
-					hero.direction = Direction.RIGHT;
-					a.setX(a.getX()+5);
-					if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
-						hero.setX(hero.getX() + 5);	
-						hero.setPaintX(hero.getPaintX() + 5);
-					}
-				} 
+				if(!hero.mort) {
+					if (Keys.UP.use()) {
+						hero.move = true;
+						hero.direction = Direction.UP;
+						a.setY(a.getY()-5);
+						if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
+							hero.setY(hero.getY() - 5);	
+							hero.setPaintY(hero.getPaintY() - 5);
+						}
+					} else if (Keys.DOWN.use()) {
+						hero.move = true;
+						hero.direction = Direction.DOWN;
+						a.setY(a.getY()+5);
+						if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
+							hero.setY(hero.getY() + 5);	
+							hero.setPaintY(hero.getPaintY() + 5);
+						}
+					} 
+					if (Keys.LEFT.use()) {
+						hero.move = true;
+						hero.direction = Direction.LEFT;
+						a.setX(a.getX()-5);
+						if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
+							hero.setX(hero.getX() - 5);	
+							hero.setPaintX(hero.getPaintX() - 5);
+						}
+					} else if (Keys.RIGHT.use()) {
+						hero.move = true;
+						hero.direction = Direction.RIGHT;
+						a.setX(a.getX()+5);
+						if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
+							hero.setX(hero.getX() + 5);	
+							hero.setPaintX(hero.getPaintX() + 5);
+						}
+					} 
 
 				if (Keys.ATTACK.use()) {
 					int longueur_epee = 20;
@@ -198,6 +200,7 @@ public class DemoFrame extends JFrame{
 						panel.tuerMonstre(a);
 					}
 				}	
+				}
 			}
 
 			@Override
@@ -215,25 +218,53 @@ public class DemoFrame extends JFrame{
 
 		
 		threadHero.start();
-	
+		JPanel mort = new JPanel(new GridLayout(2, 1));
+		JLabel perdu = new JLabel("Perdu!");
+		mort.add(perdu);
+//		JButton recommence = new JButton("Recommencer?");
+//		recommence.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				init=true;
+//			}
+//		});
+//		mort.add(recommence);
+		JButton quit = new JButton("Quitter?");
+		quit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("quit");
+				System.exit(0);
+			}
+		});
+		mort.add(quit);
 		while(true) {
 			panel.repaint();
 //			System.out.println(monstrelist.size());
 //			System.out.println(Thread.activeCount());
-//			if (hero.attack) {			
-//				if (hero.aCote(monstre))
-//					monstre.path = "src/resource/wall.jpg ";
-//
-//			}
+			if (hero.mort) {	
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				this.setContentPane(mort);
+				this.setSize(600,600);
+				this.requestFocus();
+				this.wait();
+			}
 		}
+		
 	}
+	
+	
 
 	public static void main(String[] args) throws IOException {
-		try {
-			new DemoFrame();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				new DemoFrame();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
 	}
 }
