@@ -66,6 +66,17 @@ public class Labyrinthe extends JPanel {
 				i--;
 			}
 		}
+		for(int i=0;i<Constante.nbFantones;i++) {
+			Fantone m=new Fantone();
+			m.setX((int) (Math.random() * length *30)); 
+			m.setY((int) (Math.random() * map.length *30)); 
+			if(!this.intersectsMur(m)&&!this.intersectsMonstre(m)) {
+				this.monstrelist.add(m);
+			}
+			else {
+				i--;
+			}
+		}
 	}
 	
 	

@@ -91,8 +91,10 @@ public class DemoFrame extends JFrame{
 							a.setX(j.getX());
 							a.setY(j.getY());
 							if (dx > 0) {
+								j.direction=Direction.RIGHT;
 								a.setX(a.getX()+1);
 							}else if (dx < 0){
+								j.direction=Direction.LEFT;
 								a.setX(a.getX()-1);
 							}
 							if (dy > 0) {
@@ -100,27 +102,38 @@ public class DemoFrame extends JFrame{
 							}else if (dy < 0){
 								a.setY(a.getY()-1);
 							}
-							if (!a.intersects(hero)&&!a.intersects(tresor)&&!panel.intersectsMur(a)) {	
-								j.setX(a.getX());
-								j.setY(a.getY());	
+							try {
+								if (j.getClass()==Class.forName("Demo_du_jeu.Monstre")) {
+									if (!a.intersects(hero) && !a.intersects(tresor) && !panel.intersectsMur(a)) {
+										j.setX(a.getX());
+										j.setY(a.getY());
+									}
+									//							else {
+									//								a.setX(j.getX()+a.getY()-j.getY()); //tourne a droite
+									//								a.setY(j.getY()-a.getX()+j.getX());
+									//								System.out.println("ÓÒ"+(a.getX()-j.getX())+"--"+ (a.getY()-j.getY()));
+									//								if (!a.intersects(tresor)&&!panel.intersectsMur(a)) {
+									//									j.setX(a.getX());
+									//									j.setY(a.getY());	
+									//								}else {
+									//									a.setX(j.getX()-a.getY()+j.getY()); //tourne a gauche
+									//									a.setY(j.getY()+a.getX()-j.getX());
+									//									if (!a.intersects(hero)&&!a.intersects(tresor)&&!panel.intersectsMur(a)) {
+									//										System.out.println("×ó"+(a.getX()-j.getX())+"--"+ (a.getY()-j.getY()));
+									//										j.setX(a.getX());
+									//										j.setY(a.getY());	
+									//									}
+									//								}
+									//							}
+								}
+								else if (!a.intersects(hero)){
+									j.setX(a.getX());
+									j.setY(a.getY());
+								}
+							} catch (ClassNotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
 							}
-//							else {
-//								a.setX(j.getX()+a.getY()-j.getY()); //tourne a droite
-//								a.setY(j.getY()-a.getX()+j.getX());
-//								System.out.println("ÓÒ"+(a.getX()-j.getX())+"--"+ (a.getY()-j.getY()));
-//								if (!a.intersects(tresor)&&!panel.intersectsMur(a)) {
-//									j.setX(a.getX());
-//									j.setY(a.getY());	
-//								}else {
-//									a.setX(j.getX()-a.getY()+j.getY()); //tourne a gauche
-//									a.setY(j.getY()+a.getX()-j.getX());
-//									if (!a.intersects(hero)&&!a.intersects(tresor)&&!panel.intersectsMur(a)) {
-//										System.out.println("×ó"+(a.getX()-j.getX())+"--"+ (a.getY()-j.getY()));
-//										j.setX(a.getX());
-//										j.setY(a.getY());	
-//									}
-//								}
-//							}
 							
 //							else {
 //								a.setX(j.getX()-a.getY()+j.getY()); //tourne a gauche
@@ -217,7 +230,7 @@ public class DemoFrame extends JFrame{
 		while(true) {
 			panel.repaint();
 //			System.out.println(monstrelist.size());
-//			System.out.println(Thread.activeCount());
+			System.out.println(Thread.activeCount());
 //			if (hero.attack) {			
 //				if (hero.aCote(monstre))
 //					monstre.path = "src/resource/wall.jpg ";
