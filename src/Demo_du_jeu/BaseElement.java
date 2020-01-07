@@ -39,6 +39,10 @@ public abstract class BaseElement {
 		this.y=y;
 	}
 	
+	public void setDirestion(Direction d) {
+		this.direction=d;
+	}
+	
 	public Rectangle getRectangle() {
         return new Rectangle(this.x, this.y, this.width, this.height);
     }

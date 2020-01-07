@@ -91,10 +91,10 @@ public class DemoFrame extends JFrame{
 							a.setX(j.getX());
 							a.setY(j.getY());
 							if (dx > 0) {
-								j.direction=Direction.RIGHT;
+								j.setDirestion(Direction.RIGHT);
 								a.setX(a.getX()+1);
 							}else if (dx < 0){
-								j.direction=Direction.LEFT;
+								j.setDirestion(Direction.LEFT);
 								a.setX(a.getX()-1);
 							}
 							if (dy > 0) {
@@ -230,7 +230,7 @@ public class DemoFrame extends JFrame{
 		while(true) {
 			panel.repaint();
 //			System.out.println(monstrelist.size());
-			System.out.println(Thread.activeCount());
+//			System.out.println(Thread.activeCount());
 //			if (hero.attack) {			
 //				if (hero.aCote(monstre))
 //					monstre.path = "src/resource/wall.jpg ";
