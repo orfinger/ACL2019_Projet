@@ -21,8 +21,8 @@ public class Labyrinthe extends JPanel {
 	private Hero hero;
 	private Tresor tresor;
 	public static int length;
-	
 	private static ArrayList<Mur> murlist = new ArrayList<>(); 
+	
 	public ArrayList<Mur> getMurList(){
 		return murlist;
 	}
@@ -41,6 +41,7 @@ public class Labyrinthe extends JPanel {
 	public ArrayList<Monstre> getMonstreList(){
 		return monstrelist;
 	}
+	
 	public void setMonstreList(ArrayList<Monstre> a){
 		this.monstrelist=a;
 	}
@@ -89,8 +90,6 @@ public class Labyrinthe extends JPanel {
 			}
 		}
 	}
-	
-	
 	
 	
 	private static BufferedReader fichier;

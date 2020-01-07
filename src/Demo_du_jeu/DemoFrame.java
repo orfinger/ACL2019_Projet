@@ -17,64 +17,35 @@ public class DemoFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	protected String path;
-	protected boolean init=false;
-	
+	private Hero hero;
+	private Tresor tresor;  
+	private Labyrinthe panel;
+
 	private Thread threadHero;
 	private Thread SuivreHero;
-	private ArrayList<Monstre> monstrelist = new ArrayList<>();
-	
-	public DemoFrame() throws InterruptedException, IOException {
-		this.setTitle("Demo");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
+	private ArrayList<Monstre> monstrelist; 
 
-		JPanel choisirNiveau= new JPanel(new GridLayout(3, 1));
-        JButton btn1 = new JButton("Niveau 1");
-        btn1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                path="Lab1.txt";
-            }
-        });
-        choisirNiveau.add(btn1);
-        
-        JButton btn2 = new JButton("Niveau 2");
-        btn2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                path="Lab2.txt";
-            }
-        });
-        choisirNiveau.add(btn2);
-        
-        JButton btn3 = new JButton("Niveau 3");
-        btn3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                path="Lab3.txt";
-            }
-        });
-        choisirNiveau.add(btn3);
-        this.setContentPane(choisirNiveau);
-        this.setSize(600,600);
-        while(path==null) {
-			Thread.sleep(5);
-        }
-        Hero hero = new Hero();
-        Tresor tresor = new Tresor();
-        
-        
-        threadHero = new Thread(hero);
-        
-		Labyrinthe panel = new Labyrinthe(hero,tresor,path);
+	private void initialisation() {
+		hero = new Hero();
+		tresor = new Tresor();
+		monstrelist = new ArrayList<>();
+		threadHero = new Thread(hero);
+		threadHero.start();
+
+		try {
+			panel = new Labyrinthe(hero,tresor,path);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		panel.setMonstreList(monstrelist);
 		panel.addMonstre();
 		monstrelist = panel.getMonstreList();
-		
+
 		for (Monstre j : monstrelist) {
 			new Thread(j).start();
 		}
-		
+
 		SuivreHero = new Thread(new Runnable() {
 			public void run() {
 				while(true) {
@@ -108,16 +79,21 @@ public class DemoFrame extends JFrame{
 									if(a.intersects(hero)) {
 										hero.meurt();
 									}
-										
+
 									if (!a.intersects(hero) && !a.intersects(tresor) && !panel.intersectsMur(a)) {
 										j.setX(a.getX());
 										j.setY(a.getY());
 									}
 								}
-								else if (!a.intersects(hero)){
-									j.setX(a.getX());
-									j.setY(a.getY());
-									
+								else{
+									if(a.intersects(hero)) {
+										hero.meurt();
+									}
+
+									if (!a.intersects(hero)) {
+										j.setX(a.getX());
+										j.setY(a.getY());
+									}			
 								}
 							} catch (ClassNotFoundException e) {
 								// TODO Auto-generated catch block
@@ -128,18 +104,61 @@ public class DemoFrame extends JFrame{
 				}
 			}
 		});
-		
+
 		SuivreHero.start();
-		
+		this.setSize(60 + Labyrinthe.length*30,60 + Labyrinthe.map.length*30);
+		this.setContentPane(panel);
+		this.requestFocus();
+	}
+
+	public DemoFrame() throws InterruptedException, IOException {
+		this.setTitle("Demo");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
+
+		JPanel choisirNiveau= new JPanel(new GridLayout(3, 1));
+		JButton btn1 = new JButton("Niveau 1");
+		btn1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				path="Lab1.txt";
+			}
+		});
+		choisirNiveau.add(btn1);
+
+		JButton btn2 = new JButton("Niveau 2");
+		btn2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				path="Lab2.txt";
+			}
+		});
+		choisirNiveau.add(btn2);
+
+		JButton btn3 = new JButton("Niveau 3");
+		btn3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				path="Lab3.txt";
+			}
+		});
+		choisirNiveau.add(btn3);
+		this.setContentPane(choisirNiveau);
+		this.setSize(600,600);
+		while(path==null) {
+			Thread.sleep(5);
+		}
+
+		initialisation();
 		this.setSize(60 + Labyrinthe.length*30,60 + Labyrinthe.map.length*30);
 		this.setContentPane(panel);
 		this.requestFocus();
 
-		
+
 		this.addKeyListener(new KeyAdapter(){
 
 			@Override
-			
+
 			public void keyPressed(KeyEvent e) {
 				Hero a = new Hero();
 				Keys.add(e.getKeyCode());
@@ -182,24 +201,24 @@ public class DemoFrame extends JFrame{
 						}
 					} 
 
-				if (Keys.ATTACK.use()) {
-					int longueur_epee = 20;
-					hero.attack = true;	
-					switch (hero.direction){
-					case RIGHT:
-						a.setX(a.getX()+longueur_epee);
-						panel.tuerMonstre(a);
-					case LEFT:
-						a.setX(a.getX()-longueur_epee);
-						panel.tuerMonstre(a);
-					case UP:
-						a.setY(a.getY()-longueur_epee);
-						panel.tuerMonstre(a);
-					case DOWN:
-						a.setY(a.getY()+longueur_epee);
-						panel.tuerMonstre(a);
-					}
-				}	
+					if (Keys.ATTACK.use()) {
+						int longueur_epee = 20;
+						hero.attack = true;	
+						switch (hero.direction){
+						case RIGHT:
+							a.setX(a.getX()+longueur_epee);
+							panel.tuerMonstre(a);
+						case LEFT:
+							a.setX(a.getX()-longueur_epee);
+							panel.tuerMonstre(a);
+						case UP:
+							a.setY(a.getY()-longueur_epee);
+							panel.tuerMonstre(a);
+						case DOWN:
+							a.setY(a.getY()+longueur_epee);
+							panel.tuerMonstre(a);
+						}
+					}	
 				}
 			}
 
@@ -214,21 +233,24 @@ public class DemoFrame extends JFrame{
 			@Override
 			public void keyTyped(KeyEvent e) {}
 		});
-		
 
-		
-		threadHero.start();
-		JPanel mort = new JPanel(new GridLayout(2, 1));
+
+
+
+		JPanel mort = new JPanel(new GridLayout(2, 1,100,100));
 		JLabel perdu = new JLabel("Perdu!");
 		mort.add(perdu);
-//		JButton recommence = new JButton("Recommencer?");
-//		recommence.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				init=true;
-//			}
-//		});
-//		mort.add(recommence);
+		JButton recommence = new JButton("Recommencer?");
+		recommence.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				initialisation();			
+				synchronized (this) {
+					this.notifyAll();
+				}
+			}
+		});
+		mort.add(recommence);
 		JButton quit = new JButton("Quitter?");
 		quit.addActionListener(new ActionListener() {
 			@Override
@@ -238,33 +260,35 @@ public class DemoFrame extends JFrame{
 			}
 		});
 		mort.add(quit);
+
 		while(true) {
 			panel.repaint();
-//			System.out.println(monstrelist.size());
-//			System.out.println(Thread.activeCount());
-			if (hero.mort) {	
+			//			System.out.println(monstrelist.size());
+			//			System.out.println(Thread.activeCount());
+			if (hero.mort) {
 				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {            //Il y a des pb
 					e.printStackTrace();
 				}
 				this.setContentPane(mort);
 				this.setSize(600,600);
 				this.requestFocus();
-				this.wait();
 			}
 		}
-		
+
 	}
-	
-	
+
+
 
 	public static void main(String[] args) throws IOException {
-			try {
-				new DemoFrame();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
+
+		try {
+			new DemoFrame();
+
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
 }

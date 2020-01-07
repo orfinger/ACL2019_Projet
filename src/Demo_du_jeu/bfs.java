@@ -12,17 +12,17 @@ public class bfs{
 		}
 
 	}
-	public static void main(String[] args) {
-		String[][] map={{"1","1","1","0","0"},
-                        {"1","0","1","1","0"},
-                        {"1","0","1","1","1"},
-                        {"1","1","0","1","0"},
-                        {"0","1","1","1","1"}};
-        int[] s={0,0};
-        int[] e={4,1};
-        bfs(5,5,map,s,e);
-		               
-	}
+//	public static void main(String[] args) {
+//		String[][] map={{"1","1","1","0","0"},
+//                        {"1","0","1","1","0"},
+//                        {"1","0","1","1","1"},
+//                        {"1","1","0","1","0"},
+//                        {"0","1","1","1","1"}};
+//        int[] s={0,0};
+//        int[] e={4,1};
+//        bfs(5,5,map,s,e);
+//		               
+//	}
 
 	public static void bfs(int n,int m,String[][] map,int[] start,int[] end){
             Queue<Node> que=new LinkedList<Node>();
