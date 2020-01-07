@@ -26,7 +26,7 @@ public class DemoFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 
-		JPanel choisirNiveau= new JPanel(new GridLayout(3, 1));
+		JPanel choisirNiveau= new JPanel(new GridLayout(3, 1)); 
         JButton btn1 = new JButton("Niveau 1");
         btn1.addActionListener(new ActionListener() {
             @Override
@@ -105,6 +105,9 @@ public class DemoFrame extends JFrame{
 								if (j.getClass()==Class.forName("Demo_du_jeu.Monstre")) {
 									if(a.intersects(hero)) {
 										hero.meurt();
+										path="dead.txt";
+										Labyrinthe panel = new Labyrinthe(hero,tresor,path);
+										
 									}
 										
 									if (!a.intersects(hero) && !a.intersects(tresor) && !panel.intersectsMur(a)) {
@@ -118,6 +121,9 @@ public class DemoFrame extends JFrame{
 									
 								}
 							} catch (ClassNotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
@@ -149,34 +155,71 @@ public class DemoFrame extends JFrame{
 					hero.move = true;
 					hero.direction = Direction.UP;
 					a.setY(a.getY()-5);
-					if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
+					if (!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
 						hero.setY(hero.getY() - 5);	
 						hero.setPaintY(hero.getPaintY() - 5);
+					}
+				    if (a.intersects(tresor)) {
+						
+						path="win.txt";
+						try {
+							Labyrinthe panel = new Labyrinthe(hero,tresor,path);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				} else if (Keys.DOWN.use()) {
 					hero.move = true;
 					hero.direction = Direction.DOWN;
 					a.setY(a.getY()+5);
-					if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
+					if (!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
 						hero.setY(hero.getY() + 5);	
 						hero.setPaintY(hero.getPaintY() + 5);
+					}
+					if (a.intersects(tresor)) {
+						path="win.txt";
+						try {
+							Labyrinthe panel = new Labyrinthe(hero,tresor,path);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				} 
 				else if (Keys.LEFT.use()) {
 					hero.move = true;
 					hero.direction = Direction.LEFT;
 					a.setX(a.getX()-5);
-					if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
+					if (!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
 						hero.setX(hero.getX() - 5);	
 						hero.setPaintX(hero.getPaintX() - 5);
+					}
+					if (a.intersects(tresor)) {
+						path="win.txt";
+						try {
+							Labyrinthe panel = new Labyrinthe(hero,tresor,path);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				} else if (Keys.RIGHT.use()) {
 					hero.move = true;
 					hero.direction = Direction.RIGHT;
 					a.setX(a.getX()+5);
-					if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
+					if (!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
 						hero.setX(hero.getX() + 5);	
 						hero.setPaintX(hero.getPaintX() + 5);
+					}
+					if (a.intersects(tresor)) {
+						path="win.txt";
+						try {
+							Labyrinthe panel = new Labyrinthe(hero,tresor,path);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				} 
 
