@@ -26,12 +26,12 @@ public class DemoFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 
-		JPanel choisirNiveau= new JPanel(new GridLayout(1, 1));
+		JPanel choisirNiveau= new JPanel(new GridLayout(3, 1));
         JButton btn1 = new JButton("Niveau 1");
         btn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                path="Labyrinthe.txt";
+                path="Lab1.txt";
             }
         });
         choisirNiveau.add(btn1);
@@ -111,23 +111,6 @@ public class DemoFrame extends JFrame{
 										j.setX(a.getX());
 										j.setY(a.getY());
 									}
-									//							else {
-									//								a.setX(j.getX()+a.getY()-j.getY()); //tourne a droite
-									//								a.setY(j.getY()-a.getX()+j.getX());
-									//								System.out.println("ÓÒ"+(a.getX()-j.getX())+"--"+ (a.getY()-j.getY()));
-									//								if (!a.intersects(tresor)&&!panel.intersectsMur(a)) {
-									//									j.setX(a.getX());
-									//									j.setY(a.getY());	
-									//								}else {
-									//									a.setX(j.getX()-a.getY()+j.getY()); //tourne a gauche
-									//									a.setY(j.getY()+a.getX()-j.getX());
-									//									if (!a.intersects(hero)&&!a.intersects(tresor)&&!panel.intersectsMur(a)) {
-									//										System.out.println("×ó"+(a.getX()-j.getX())+"--"+ (a.getY()-j.getY()));
-									//										j.setX(a.getX());
-									//										j.setY(a.getY());	
-									//									}
-									//								}
-									//							}
 								}
 								else if (!a.intersects(hero)){
 									j.setX(a.getX());
@@ -138,22 +121,6 @@ public class DemoFrame extends JFrame{
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							
-//							else {
-//								a.setX(j.getX()-a.getY()+j.getY()); //tourne a gauche
-//								a.setY(j.getX()+a.getX()-j.getX());
-//								if (!a.intersects(hero)&&!a.intersects(tresor)&&!panel.intersectsMur(a)) {
-//									j.setX(a.getX());
-//									j.setY(a.getY());	
-//								}else {
-//									a.setX(j.getX()+a.getY()-j.getY()); //tourne a droite
-//									a.setY(j.getX()-a.getX()+j.getX());
-//									if (!a.intersects(hero)&&!a.intersects(tresor)&&!panel.intersectsMur(a)) {
-//										j.setX(a.getX());
-//										j.setY(a.getY());	
-//									}
-//								}
-//							}
 						}		
 					}
 				}

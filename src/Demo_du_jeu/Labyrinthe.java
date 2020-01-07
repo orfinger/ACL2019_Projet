@@ -76,7 +76,7 @@ public class Labyrinthe extends JPanel {
 			else {
 				i--;
 			}
-		}/*
+		}
 		for(int i=0;i<Constante.nbFantones;i++) {
 			Fantone m=new Fantone();
 			m.setX((int) (Math.random() * length *30)); 
@@ -87,7 +87,7 @@ public class Labyrinthe extends JPanel {
 			else {
 				i--;
 			}
-		}*/
+		}
 	}
 	
 	
@@ -126,7 +126,7 @@ public class Labyrinthe extends JPanel {
 		if(!hero.mort) {
 			g.drawImage(hero.getImage(), hero.getPaintX(), hero.getPaintY(), null);
 		}else {
-			Image mort  =new ImageIcon("src/resource/hero-mort.png").getImage();
+			Image mort = new ImageIcon("src/resource/hero-mort.png").getImage();
 			g.drawImage(mort, hero.getPaintX(), hero.getPaintY(), null);
 		}
 

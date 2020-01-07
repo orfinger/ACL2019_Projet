@@ -9,4 +9,7 @@ public class ASearch {
             this.h=h;
 		}
 	}
+	public static void bfs() {
+		
+	}
 }
