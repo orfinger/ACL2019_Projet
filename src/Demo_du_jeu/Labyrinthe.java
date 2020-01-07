@@ -54,6 +54,17 @@ public class Labyrinthe extends JPanel {
 		return false;
 	}
 	
+	public <E extends BaseElement> void tuerMonstre(E element){
+		for (int j = 0; j<monstrelist.size();j++) {
+			if (monstrelist.get(j).intersects(element)) {
+				monstrelist.remove(j);
+				break;
+			}			
+		}
+
+	}
+	
+	
 	public void addMonstre() {
 		for(int i=0;i<Constante.nbMonstre;i++) {
 			Monstre m=new Monstre();
@@ -65,7 +76,7 @@ public class Labyrinthe extends JPanel {
 			else {
 				i--;
 			}
-		}
+		}/*
 		for(int i=0;i<Constante.nbFantones;i++) {
 			Fantone m=new Fantone();
 			m.setX((int) (Math.random() * length *30)); 
@@ -76,7 +87,7 @@ public class Labyrinthe extends JPanel {
 			else {
 				i--;
 			}
-		}
+		}*/
 	}
 	
 	

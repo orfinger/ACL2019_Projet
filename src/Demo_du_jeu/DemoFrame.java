@@ -207,7 +207,22 @@ public class DemoFrame extends JFrame{
 				} 
 
 				if (Keys.ATTACK.use()) {
-					hero.attack = true;				
+					int longueur_epee = 20;
+					hero.attack = true;	
+					switch (hero.direction){
+					case RIGHT:
+						a.setX(a.getX()+longueur_epee);
+						panel.tuerMonstre(a);
+					case LEFT:
+						a.setX(a.getX()-longueur_epee);
+						panel.tuerMonstre(a);
+					case UP:
+						a.setY(a.getY()-longueur_epee);
+						panel.tuerMonstre(a);
+					case DOWN:
+						a.setY(a.getY()+longueur_epee);
+						panel.tuerMonstre(a);
+					}
 				}	
 			}
 
