@@ -104,7 +104,7 @@ public class Labyrinthe extends JPanel {
 
 	
 	@Override
-	public void paint(Graphics g) {		
+	public void paint(Graphics g) {
 		super.paint(g);
 		Image image = new ImageIcon("src/resource/wall.png").getImage();
 		Image prairie0 = new ImageIcon("src/resource/prairie0.png").getImage();
@@ -123,7 +123,13 @@ public class Labyrinthe extends JPanel {
 				}
 			}
 		}
-		g.drawImage(hero.getImage(), hero.getPaintX(), hero.getPaintY(), null);
+		if(!hero.mort) {
+			g.drawImage(hero.getImage(), hero.getPaintX(), hero.getPaintY(), null);
+		}else {
+			Image mort  =new ImageIcon("src/resource/hero-mort.png").getImage();
+			g.drawImage(mort, hero.getPaintX(), hero.getPaintY(), null);
+		}
+
 		g.drawImage(tresor.getImage(), tresor.getX(), tresor.getY(), null);
 		
 		for (Monstre j : monstrelist) {

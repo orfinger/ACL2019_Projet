@@ -21,7 +21,6 @@ public class DemoFrame extends JFrame{
 	private Thread threadHero;
 	private Thread SuivreHero;
 	private ArrayList<Monstre> monstrelist = new ArrayList<>();
-	
 	public DemoFrame() throws InterruptedException, IOException {
 		this.setTitle("Demo");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,6 +103,10 @@ public class DemoFrame extends JFrame{
 							}
 							try {
 								if (j.getClass()==Class.forName("Demo_du_jeu.Monstre")) {
+									if(a.intersects(hero)) {
+										hero.meurt();
+									}
+										
 									if (!a.intersects(hero) && !a.intersects(tresor) && !panel.intersectsMur(a)) {
 										j.setX(a.getX());
 										j.setY(a.getY());
@@ -129,6 +132,7 @@ public class DemoFrame extends JFrame{
 								else if (!a.intersects(hero)){
 									j.setX(a.getX());
 									j.setY(a.getY());
+									
 								}
 							} catch (ClassNotFoundException e) {
 								// TODO Auto-generated catch block
@@ -155,23 +159,26 @@ public class DemoFrame extends JFrame{
 				}
 			}
 		});
+		
 		SuivreHero.start();
 		
 		this.setSize(60 + Labyrinthe.length*30,60 + Labyrinthe.map.length*30);
 		this.setContentPane(panel);
 		this.requestFocus();
+
 		
 		this.addKeyListener(new KeyAdapter(){
 
 			@Override
+			
 			public void keyPressed(KeyEvent e) {
 				Hero a = new Hero();
 				Keys.add(e.getKeyCode());
 
 				a.setX(hero.getX());
 				a.setY(hero.getY());
-				
-				if (Keys.UP.use()) {
+				if(hero.mort) {}
+				else if (Keys.UP.use()) {
 					hero.move = true;
 					hero.direction = Direction.UP;
 					a.setY(a.getY()-5);
@@ -188,7 +195,7 @@ public class DemoFrame extends JFrame{
 						hero.setPaintY(hero.getPaintY() + 5);
 					}
 				} 
-				if (Keys.LEFT.use()) {
+				else if (Keys.LEFT.use()) {
 					hero.move = true;
 					hero.direction = Direction.LEFT;
 					a.setX(a.getX()-5);

@@ -4,6 +4,7 @@ public class Hero extends BaseElement implements Runnable{
 	public boolean attack;
 	public boolean move;
 	protected int paintX,paintY;
+	public boolean mort;
 	public Hero() {
 		super();
 		this.x = 30;
@@ -15,6 +16,7 @@ public class Hero extends BaseElement implements Runnable{
 		this.path = "src/resource/hero-r.png";
 		attack = false;
 		move = false;
+		mort = false;
 	}
 	public int getPaintX() {
 		return this.paintX;
@@ -235,7 +237,10 @@ public class Hero extends BaseElement implements Runnable{
 		
 		this.attack = false;
 	}
-
+	public void meurt() {
+		this.path ="src/resource/hero-mort.png";
+		mort = true;
+	}
 	public void run() {
 		while (true) {
 			synchronized (this.path) {
