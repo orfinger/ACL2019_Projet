@@ -8,7 +8,7 @@ public class Constante {
 	public final static String RESOURCES_PATH = "src/main/resource/";
 	public static int nbMonstre=3;
 	public static int nbFantones=2;
-	public final static int MONSTRE_SPEED = 30;
+	public final static int MONSTRE_SPEED = 20;
 	public final static int MONSTRE_DETECTION_RANGE = 300;
 }
 

@@ -99,7 +99,31 @@ public class DemoFrame extends JFrame{
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-						}		
+						}
+//						else {
+//							Monstre a = new Monstre();
+//							a.setX(j.getX());
+//							a.setY(j.getY());
+//							if (Math.random() > 0.5) {
+//								if (Math.random() > 0.5) {
+//									a.setY(a.getY()+5);
+//								}
+//								else {
+//									a.setY(a.getY()-5);
+//								}
+//							}else {
+//								if (Math.random() > 0.5) {
+//									a.setX(a.getX()+5);
+//								}
+//								else {
+//									a.setX(a.getX()-5);
+//								}
+//							}
+//							if (!a.intersects(hero) && !a.intersects(tresor) && !panel.intersectsMur(a)) {
+//								j.setX(a.getX());
+//								j.setY(a.getY());
+//							}
+//						}
 					}
 				}
 			}
