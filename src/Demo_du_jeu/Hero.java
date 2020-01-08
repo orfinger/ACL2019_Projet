@@ -5,6 +5,7 @@ public class Hero extends BaseElement implements Runnable{
 	public boolean move;
 	protected int paintX,paintY;
 	public boolean mort;
+	public boolean gagne;
 	public Hero() {
 		super();
 		this.x = 30;
@@ -17,6 +18,7 @@ public class Hero extends BaseElement implements Runnable{
 		attack = false;
 		move = false;
 		mort = false;
+		gagne = false;
 	}
 	public int getPaintX() {
 		return this.paintX;

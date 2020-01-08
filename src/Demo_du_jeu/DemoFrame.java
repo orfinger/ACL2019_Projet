@@ -170,34 +170,46 @@ public class DemoFrame extends JFrame{
 						hero.move = true;
 						hero.direction = Direction.UP;
 						a.setY(a.getY()-5);
-						if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
+						if (!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
 							hero.setY(hero.getY() - 5);	
 							hero.setPaintY(hero.getPaintY() - 5);
+							if(hero.intersects(tresor)){
+								hero.gagne=true;
+							}
 						}
 					} else if (Keys.DOWN.use()) {
 						hero.move = true;
 						hero.direction = Direction.DOWN;
 						a.setY(a.getY()+5);
-						if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
+						if (!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
 							hero.setY(hero.getY() + 5);	
 							hero.setPaintY(hero.getPaintY() + 5);
+							if(hero.intersects(tresor)){
+								hero.gagne=true;
+							}
 						}
 					} 
 					if (Keys.LEFT.use()) {
 						hero.move = true;
 						hero.direction = Direction.LEFT;
 						a.setX(a.getX()-5);
-						if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
+						if (!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
 							hero.setX(hero.getX() - 5);	
 							hero.setPaintX(hero.getPaintX() - 5);
+							if(hero.intersects(tresor)){
+								hero.gagne=true;
+							}
 						}
 					} else if (Keys.RIGHT.use()) {
 						hero.move = true;
 						hero.direction = Direction.RIGHT;
 						a.setX(a.getX()+5);
-						if (!a.intersects(tresor)&&!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
+						if (!panel.intersectsMonstre(a)&&!panel.intersectsMur(a)) {
 							hero.setX(hero.getX() + 5);	
 							hero.setPaintX(hero.getPaintX() + 5);
+							if(hero.intersects(tresor)){
+								hero.gagne=true;
+							}
 						}
 					} 
 
@@ -237,11 +249,16 @@ public class DemoFrame extends JFrame{
 
 
 
-		JPanel mort = new JPanel(new GridLayout(2, 1,100,100));
+		JPanel fini_perdu = new JPanel(new GridLayout(1,2,100,100));
+		JPanel fini_gagne = new JPanel(new GridLayout(1,2,100,100));
 		JLabel perdu = new JLabel("Perdu!");
-		mort.add(perdu);
-		JButton recommence = new JButton("Recommencer?");
-		recommence.addActionListener(new ActionListener() {
+		JLabel gagne = new JLabel("Gagné!");
+	
+		fini_perdu.add(perdu);
+		fini_gagne.add(gagne);	
+		
+		JButton p_recommence = new JButton("Recommencer?");
+		p_recommence.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				initialisation();			
@@ -250,17 +267,37 @@ public class DemoFrame extends JFrame{
 				}
 			}
 		});
-		mort.add(recommence);
-		JButton quit = new JButton("Quitter?");
-		quit.addActionListener(new ActionListener() {
+		fini_perdu.add(p_recommence);
+		JButton g_recommence = new JButton("Recommencer?");
+		g_recommence.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				initialisation();			
+				synchronized (this) {
+					this.notifyAll();
+				}
+			}
+		});
+		fini_gagne.add(g_recommence);
+		JButton p_quit = new JButton("Quitter?");
+		p_quit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("quit");
 				System.exit(0);
 			}
 		});
-		mort.add(quit);
-
+		fini_perdu.add(p_quit);
+		JButton g_quit = new JButton("Quitter?");
+		g_quit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("quit");
+				System.exit(0);
+			}
+		});
+		fini_gagne.add(g_quit);
+		
 		while(true) {
 			panel.repaint();
 			//			System.out.println(monstrelist.size());
@@ -271,7 +308,17 @@ public class DemoFrame extends JFrame{
 				} catch (InterruptedException e) {            //Il y a des pb
 					e.printStackTrace();
 				}
-				this.setContentPane(mort);
+				this.setContentPane(fini_perdu);
+				this.setSize(600,600);
+				this.requestFocus();
+			}
+			if (hero.gagne) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {            //Il y a des pb
+					e.printStackTrace();
+				}
+				this.setContentPane(fini_gagne);
 				this.setSize(600,600);
 				this.requestFocus();
 			}
