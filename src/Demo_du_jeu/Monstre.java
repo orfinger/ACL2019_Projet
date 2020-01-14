@@ -1,30 +1,49 @@
 package Demo_du_jeu;
 
-public class Monstre extends BaseElement implements Runnable{
+import java.util.Arrays;
+import java.util.Collections;
 
+public class Monstre extends BaseElement implements Runnable{
+	private java.util.List<String> list = Arrays.asList("up","down","right","left");
+	private static int count=0;
 	public Monstre() {
 		super();
 		this.path = "src/resource/monstre-r.png";
 	}
 
-	public <E extends BaseElement> void suivreHero(E hero) {
-		int dx = hero.getX() - this.x;
-		int dy = hero.getY() - this.y;
-		int radial_distance = (int) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-		int range = 300;
-		int speed = 1;
-		if (radial_distance < range) {
-			if (dx > 0) {
-				this.x = this.x + speed;
-			}else if (dx < 0){
-				this.x = this.x - speed;
-			}
-			if (dy > 0) {
-				this.y = this.y + speed;
-			}else if (dy < 0){
-				this.y = this.y - speed;
-			}
-		}		
+	public void move_alea(boolean inters) {
+		
+		Monstre a = new Monstre();
+		a.setX(this.getX());
+		a.setY(this.getY());
+		switch(list.get(0)) {
+		case "up":
+			a.setY(a.getY()-1);
+			break;
+		case "down":
+			a.setY(a.getY()+1);
+			break;
+		case "right":
+			a.setX(a.getX()+1);
+			break;
+		case "left":
+			a.setX(a.getX()-1);
+			break;
+		default:
+		}
+		
+		System.out.println(count);
+	    if (count>6||inters) {
+			// shuffle 
+			Collections.shuffle(list);
+			System.out.println(list.get(0));
+			count=0;
+		}
+	    else{
+			this.setX(a.getX());
+			this.setY(a.getY());
+			count++;
+		}
 	}
 	
 	public synchronized void move(){

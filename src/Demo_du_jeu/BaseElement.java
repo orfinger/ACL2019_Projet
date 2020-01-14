@@ -58,4 +58,9 @@ public abstract class BaseElement {
     	return (radial_distance<=30);
       
     }
+    
+    public int[] getCoordonnnes() {
+    	int[] coor={getX()/30,getY()/30};
+        return coor;
+    }
 }

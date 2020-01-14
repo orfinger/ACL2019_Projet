@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.awt.*;
 import javax.swing.*;
 
@@ -24,6 +24,7 @@ public class DemoFrame extends JFrame{
 	private Thread threadHero;
 	private Thread SuivreHero;
 	private ArrayList<Monstre> monstrelist; 
+	RandomEnum<Direction> r=new RandomEnum<Direction>(Direction.class);
 
 	private void initialisation() {
 		hero = new Hero();
@@ -48,82 +49,113 @@ public class DemoFrame extends JFrame{
 
 		SuivreHero = new Thread(new Runnable() {
 			public void run() {
+//				int count=0;
+
 				while(true) {
+//					count++;
 					try {
-						Thread.sleep((int)1000/Constante.MONSTRE_SPEED);
+						Thread.sleep((int)2000/Constante.MONSTRE_SPEED);
+						
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					for (Monstre j : monstrelist) {
+						
 						int dx = hero.getX() - j.x;
 						int dy = hero.getY() - j.y;
 						int radial_distance = (int) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 						if (radial_distance < Constante.MONSTRE_DETECTION_RANGE) {
-							Monstre a = new Monstre();
-							a.setX(j.getX());
-							a.setY(j.getY());
-							if (dx > 0) {
-								j.setDirestion(Direction.RIGHT);
-								a.setX(a.getX()+1);
-							}else if (dx < 0){
-								j.setDirestion(Direction.LEFT);
-								a.setX(a.getX()-1);
-							}
-							if (dy > 0) {
-								a.setY(a.getY()+1);
-							}else if (dy < 0){
-								a.setY(a.getY()-1);
-							}
-							try {
-								if (j.getClass()==Class.forName("Demo_du_jeu.Monstre")) {
-									if(a.intersects(hero)) {
-										hero.meurt();
-									}
+							
+							Node startNode = new Node(j.getCoordonnnes()[0], j.getCoordonnnes()[1]);
+					        Node endNode = new Node(hero.getCoordonnnes()[0],hero.getCoordonnnes()[1]);
+					      
+					        
+					        ASearch as = new ASearch(panel.RetourMap(),startNode,endNode);
+					        Node parent = as.findPath(startNode, endNode);
+					      
+					        //as.printMap();
 
-									if (!a.intersects(hero) && !a.intersects(tresor) && !panel.intersectsMur(a)) {
-										j.setX(a.getX());
-										j.setY(a.getY());
-									}
-								}
-								else{
-									if(a.intersects(hero)) {
-										hero.meurt();
-									}
+					        ArrayList<Node> arrayList = parent != null ? as.getPaths(parent) : null;
 
-									if (!a.intersects(hero)) {
-										j.setX(a.getX());
-										j.setY(a.getY());
-									}			
-								}
-							} catch (ClassNotFoundException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-//						else {
+					        as.printPaths(arrayList);
+					        System.out.print(arrayList.get(arrayList.size() - 2));
+					        
+					        j.setX(j.getX()+arrayList.get(arrayList.size() - 2).x-j.getCoordonnnes()[0]);
+							j.setY(j.getY()+arrayList.get(arrayList.size() - 2).y-j.getCoordonnnes()[1]);
+							arrayList=null;
 //							Monstre a = new Monstre();
 //							a.setX(j.getX());
 //							a.setY(j.getY());
-//							if (Math.random() > 0.5) {
-//								if (Math.random() > 0.5) {
-//									a.setY(a.getY()+5);
-//								}
-//								else {
-//									a.setY(a.getY()-5);
-//								}
-//							}else {
-//								if (Math.random() > 0.5) {
-//									a.setX(a.getX()+5);
-//								}
-//								else {
-//									a.setX(a.getX()-5);
-//								}
+//							if (dx > 0) {
+//								j.setDirestion(Direction.RIGHT);
+//								a.setX(a.getX()+1);
+//							}else if (dx < 0){
+//								j.setDirestion(Direction.LEFT);
+//								a.setX(a.getX()-1);
 //							}
-//							if (!a.intersects(hero) && !a.intersects(tresor) && !panel.intersectsMur(a)) {
-//								j.setX(a.getX());
-//								j.setY(a.getY());
+//							if (dy > 0) {
+//								a.setY(a.getY()+1);
+//							}else if (dy < 0){
+//								a.setY(a.getY()-1);
+//							}
+//							try {
+//								if (j.getClass()==Class.forName("Demo_du_jeu.Monstre")) {
+//									if(a.intersects(hero)) {
+//										hero.meurt();
+//									}
+//
+//									if (!a.intersects(hero) && !a.intersects(tresor) && !panel.intersectsMur(a)) {
+//										j.setX(a.getX());
+//										j.setY(a.getY());
+//									}
+//								}
+//								else{
+//									if(a.intersects(hero)) {
+//										hero.meurt();
+//									}
+//
+//									if (!a.intersects(hero)) {
+//										j.setX(a.getX());
+//										j.setY(a.getY());
+//									}			
+//								}
+//							} catch (ClassNotFoundException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
 //							}
 //						}
+////						else {
+////							Monstre a = new Monstre();
+////							a.setX(j.getX());
+////							a.setY(j.getY());
+////							switch(j.direction) {
+////							case UP:
+////								a.setY(a.getY()-1);
+////								break;
+////							case DOWN:
+////								a.setY(a.getY()+1);
+////								break;
+////							case RIGHT:
+////								a.setX(a.getX()+1);
+////								break;
+////							case LEFT:
+////								a.setX(a.getX()-1);
+////								break;
+////							default:
+////							}
+////							
+////						    if (count>=20||a.intersects(tresor)||panel.intersectsMur(a)) {
+////								// changer direction
+////						    	j.direction=r.random();
+////						    	System.out.println(count);
+////						    	System.out.println(r.random());
+////								count=0;
+////							}
+////							if (!a.intersects(tresor) && !panel.intersectsMur(a)) {
+////								j.setX(a.getX());
+////								j.setY(a.getY());
+////							}
+						}
 					}
 				}
 			}
@@ -276,7 +308,7 @@ public class DemoFrame extends JFrame{
 		JPanel fini_perdu = new JPanel(new GridLayout(1,2,100,100));
 		JPanel fini_gagne = new JPanel(new GridLayout(1,2,100,100));
 		JLabel perdu = new JLabel("Perdu!");
-		JLabel gagne = new JLabel("Gagné!");
+		JLabel gagne = new JLabel("Gagne!");
 	
 		fini_perdu.add(perdu);
 		fini_gagne.add(gagne);	
@@ -325,7 +357,7 @@ public class DemoFrame extends JFrame{
 		while(true) {
 			panel.repaint();
 			//			System.out.println(monstrelist.size());
-			//			System.out.println(Thread.activeCount());
+			//			System.out.println("thread:"+Thread.activeCount());
 			if (hero.mort) {
 				try {
 					Thread.sleep(100);
@@ -353,7 +385,7 @@ public class DemoFrame extends JFrame{
 
 
 	public static void main(String[] args) throws IOException {
-
+		
 		try {
 			new DemoFrame();
 

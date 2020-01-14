@@ -181,4 +181,7 @@ public class Labyrinthe extends JPanel {
 		}
 	}
 	
+	public int[][] RetourMap(){
+		return map;
+	}
 }
