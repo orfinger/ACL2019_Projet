@@ -273,13 +273,16 @@ public class DemoFrame extends JFrame{
 
 
 
-		JPanel fini_perdu = new JPanel(new GridLayout(1,2,100,100));
-		JPanel fini_gagne = new JPanel(new GridLayout(1,2,100,100));
+		Box fini_perdu = Box.createVerticalBox();
+		Box fini_gagne = Box.createVerticalBox();
 		JLabel perdu = new JLabel("Perdu!");
 		JLabel gagne = new JLabel("Gagné!");
 	
 		fini_perdu.add(perdu);
+		Box.createVerticalGlue();
+		
 		fini_gagne.add(gagne);	
+		Box.createVerticalGlue();
 		
 		JButton p_recommence = new JButton("Recommencer?");
 		p_recommence.addActionListener(new ActionListener() {
@@ -292,6 +295,7 @@ public class DemoFrame extends JFrame{
 			}
 		});
 		fini_perdu.add(p_recommence);
+		Box.createVerticalGlue();
 		JButton g_recommence = new JButton("Recommencer?");
 		g_recommence.addActionListener(new ActionListener() {
 			@Override
@@ -303,6 +307,7 @@ public class DemoFrame extends JFrame{
 			}
 		});
 		fini_gagne.add(g_recommence);
+		Box.createVerticalGlue();
 		JButton p_quit = new JButton("Quitter?");
 		p_quit.addActionListener(new ActionListener() {
 			@Override
@@ -312,6 +317,7 @@ public class DemoFrame extends JFrame{
 			}
 		});
 		fini_perdu.add(p_quit);
+		Box.createVerticalGlue();
 		JButton g_quit = new JButton("Quitter?");
 		g_quit.addActionListener(new ActionListener() {
 			@Override
@@ -321,6 +327,7 @@ public class DemoFrame extends JFrame{
 			}
 		});
 		fini_gagne.add(g_quit);
+		Box.createVerticalGlue();
 		
 		while(true) {
 			panel.repaint();
