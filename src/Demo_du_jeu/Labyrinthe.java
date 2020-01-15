@@ -23,6 +23,10 @@ public class Labyrinthe extends JPanel {
 	public static int length;
 	private static ArrayList<Mur> murlist = new ArrayList<>(); 
 	
+	public int[][] RetourMap(){
+		return map;
+	}
+	
 	public ArrayList<Mur> getMurList(){
 		return murlist;
 	}
@@ -108,12 +112,12 @@ public class Labyrinthe extends JPanel {
 		Image image = new ImageIcon("src/resource/wall.png").getImage();
 		Image prairie0 = new ImageIcon("src/resource/prairie0.png").getImage();
 		Image prairie1 = new ImageIcon("src/resource/prairie1.png").getImage();
-		for (int i=0; i<map.length; i++) {
+		for (int i=1; i<map.length+1; i++) {
 			for (int j=0; j<length; j++) {
-				if (map[i][j]==1) {
+				if (map[i-1][j]==1) {
 					g.drawImage(image, j*30, i*30, null);
 				}else {
-					if (map[i][j]==2) {
+					if (map[i-1][j]==2) {
 						g.drawImage(prairie1, j * 30, i * 30, null);
 					}
 					else {
@@ -123,7 +127,7 @@ public class Labyrinthe extends JPanel {
 			}
 		}
 		if(!hero.mort) {
-			g.drawImage(hero.getImage(), hero.getPaintX(), hero.getPaintY(), null);
+			g.drawImage(hero.getImage(), hero.getPaintX(), hero.getPaintY()+30, null);
 		}else {
 			Image mort = new ImageIcon("src/resource/hero-mort.png").getImage();
 			g.drawImage(mort, hero.getPaintX(), hero.getPaintY(), null);
@@ -161,13 +165,12 @@ public class Labyrinthe extends JPanel {
 		for (int i = 0;i<liste.size();i++) {
 			for(int j=0;j<liste.get(i).length;j++) {
 				map[i][j] = liste.get(i)[j];
-				if (map[i][j]!=1) {
-					if (Math.random()>0.8) {
-						map[i][j]=2;
-					}
-				}
-			}
-			
+//				if (map[i][j]!=1) {
+//					if (Math.random()>0.8) {
+//						map[i][j]=2;
+//					}
+//				}
+			}		
 		}
 		for (int i = 0;i<map.length;i++) {
 			for (int j = 0;j<map[i].length;j++) {
@@ -179,9 +182,5 @@ public class Labyrinthe extends JPanel {
 				}
 			}
 		}
-	}
-	
-	public int[][] RetourMap(){
-		return map;
 	}
 }

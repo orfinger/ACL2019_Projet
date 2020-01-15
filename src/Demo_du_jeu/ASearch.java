@@ -28,7 +28,7 @@ public class ASearch {
     // 四个方向
     public static final int[][] direct = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
-    public static final int step = 50;
+    public static final int step = 10;
 
     private ArrayList<Node> openList = new ArrayList<Node>();
     private ArrayList<Node> closeList = new ArrayList<Node>();

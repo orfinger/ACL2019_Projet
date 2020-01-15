@@ -60,7 +60,7 @@ public abstract class BaseElement {
     }
     
     public int[] getCoordonnnes() {
-    	int[] coor={getX()/30,getY()/30};
+    	int[] coor={getY()/30,getX()/30};
         return coor;
     }
 }

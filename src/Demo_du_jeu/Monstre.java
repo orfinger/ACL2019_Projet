@@ -1,49 +1,10 @@
 package Demo_du_jeu;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 public class Monstre extends BaseElement implements Runnable{
-	private java.util.List<String> list = Arrays.asList("up","down","right","left");
-	private static int count=0;
+	
 	public Monstre() {
 		super();
 		this.path = "src/resource/monstre-r.png";
-	}
-
-	public void move_alea(boolean inters) {
-		
-		Monstre a = new Monstre();
-		a.setX(this.getX());
-		a.setY(this.getY());
-		switch(list.get(0)) {
-		case "up":
-			a.setY(a.getY()-1);
-			break;
-		case "down":
-			a.setY(a.getY()+1);
-			break;
-		case "right":
-			a.setX(a.getX()+1);
-			break;
-		case "left":
-			a.setX(a.getX()-1);
-			break;
-		default:
-		}
-		
-		System.out.println(count);
-	    if (count>6||inters) {
-			// shuffle 
-			Collections.shuffle(list);
-			System.out.println(list.get(0));
-			count=0;
-		}
-	    else{
-			this.setX(a.getX());
-			this.setY(a.getY());
-			count++;
-		}
 	}
 	
 	public synchronized void move(){
